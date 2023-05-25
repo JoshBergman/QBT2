@@ -1,0 +1,8 @@
+.navContainer {
+  background-color: aqua;
+}
+
+.navLink {
+  text-decoration: none;
+  margin: 10px;
+}
