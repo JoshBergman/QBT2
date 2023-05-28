@@ -1,16 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
-import SectionCard from "./Components/UI/PageElements/SectionCard";
 import Header from "./Components/UI/Header/Header";
+import ExpenseGraph from "./Components/PageComponents/MonthlyExpGraph/ExpensesGraph";
+import { ThemeContext } from "./Store/ThemeContext";
+import Expenses from "./Components/PageComponents/Expenses/Expenses";
 
 function App() {
+  const themeCTX = useContext(ThemeContext).theme;
+
+  const background = {
+    background:
+      "linear-gradient(to top right," + themeCTX.pageColor + ", #F9FAFC)",
+  };
+
   return (
-    <React.Fragment>
-      <Header />
-      <SectionCard sectionID="test">
-        <h1>Important Text</h1>
-      </SectionCard>
-    </React.Fragment>
+    <div className="page" style={background}>
+      <div className="appControl">
+        <Header />
+        <ExpenseGraph />
+        <Expenses />
+
+        <ExpenseGraph />
+        <Expenses />
+
+        <ExpenseGraph />
+        <Expenses />
+
+        <ExpenseGraph />
+        <Expenses />
+      </div>
+    </div>
   );
 }
 

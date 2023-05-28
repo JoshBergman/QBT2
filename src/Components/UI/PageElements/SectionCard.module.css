@@ -1,0 +1,7 @@
+.section {
+  margin: 100px 0;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: -5px -5px 5px #dfe2e7 inset, 5px 5px 5px #dfe2e7 inset;
+}

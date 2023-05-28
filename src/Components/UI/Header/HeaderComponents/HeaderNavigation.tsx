@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 import styles from "./HeaderNavigation.module.css";
 import { ThemeContext } from "../../../../Store/ThemeContext";
 
-export default function HeaderNavigation() {
+const HeaderNavigation = () => {
   const themeCTX = useContext(ThemeContext).theme;
   const links = [
     ["Link Name", "Link"],
@@ -23,4 +23,6 @@ export default function HeaderNavigation() {
       ))}
     </nav>
   );
-}
+};
+
+export default HeaderNavigation;

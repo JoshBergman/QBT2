@@ -1,13 +1,22 @@
-import React from "react";
-import HeaderNavigation from "./HeaderComponents/HeaderNavigation";
+import { useContext } from "react";
 
 import styles from "./Header.module.css";
+import HeaderNavigation from "./HeaderComponents/HeaderNavigation";
+import { ThemeContext } from "../../../Store/ThemeContext";
 
-export default function Header() {
+const Header = () => {
+  const themeCTX = useContext(ThemeContext).theme;
+
   return (
-    <header className={styles.header}>
-      <h3 className={styles.logoText}>QBT</h3>
+    <header id="header" className={styles.header}>
+      <h3 className={styles.logoText} style={{ color: themeCTX.logoColor }}>
+        <a className="link" href="header">
+          QBT
+        </a>
+      </h3>
       <HeaderNavigation />
     </header>
   );
-}
+};
+
+export default Header;
