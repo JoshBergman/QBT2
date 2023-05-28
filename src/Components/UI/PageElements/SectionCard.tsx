@@ -6,9 +6,10 @@ import { ThemeContext } from "../../../Store/ThemeContext";
 interface ISectionCardProps {
   sectionID: string;
   children: React.ReactNode;
+  title?: React.ReactNode;
 }
 
-const SectionCard = ({ sectionID, children }: ISectionCardProps) => {
+const SectionCard = ({ sectionID, children, title }: ISectionCardProps) => {
   const themeCTX = useContext(ThemeContext).theme;
 
   return (
@@ -17,6 +18,14 @@ const SectionCard = ({ sectionID, children }: ISectionCardProps) => {
       className={styles.section}
       style={{ backgroundColor: themeCTX.sectionColor }}
     >
+      {title && (
+        <h3
+          className={styles.sectionHeading}
+          style={{ color: themeCTX.logoColor }}
+        >
+          {title}
+        </h3>
+      )}
       {children}
     </section>
   );
