@@ -1,11 +1,13 @@
 .section {
-  margin: 80px 0;
-  border-radius: 5px;
+  margin: 50px 0;
   padding: 18px 0;
-  text-align: center;
+  border-radius: 5px;
   box-shadow: -3px -3px 5px #dfe2e7 inset, 3px 3px 3px #dfe2e7 inset;
+
+  text-align: center;
 }
 
 .sectionHeading {
-  margin: 20px;
+  margin: 15px;
+  margin-top: 0;
 }

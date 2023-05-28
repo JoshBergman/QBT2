@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./Components/UI/Header/Header";
 import ExpenseGraph from "./Components/PageComponents/MonthlyExpGraph/ExpensesGraph";
 import Expenses from "./Components/PageComponents/Expenses/Expenses";
+import UserInfo from "./Components/PageComponents/UserInfo/UserInfo";
 
 function App() {
   return (
@@ -9,15 +10,7 @@ function App() {
       <Header />
       <ExpenseGraph />
       <Expenses />
-
-      <ExpenseGraph />
-      <Expenses />
-
-      <ExpenseGraph />
-      <Expenses />
-
-      <ExpenseGraph />
-      <Expenses />
+      <UserInfo />
     </div>
   );
 }

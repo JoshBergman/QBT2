@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <header id="header" className={styles.header}>
       <h3 className={styles.logoText} style={{ color: themeCTX.logoColor }}>
-        <a className="link" href="header">
+        <a className="link" href="#header">
           QBT
         </a>
       </h3>

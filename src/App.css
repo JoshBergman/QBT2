@@ -5,6 +5,7 @@ html {
 .appControl {
   font-family: "Montserrat", sans-serif;
   width: clamp(795px, 60%, 90%);
+  min-height: 97.5vh;
   margin: 0 auto;
   margin-top: 20px;
 }
