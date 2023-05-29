@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import styles from "./SectionCard.module.css";
-import { ThemeContext } from "../../../Store/ThemeContext";
+import { ThemeContext } from "../../../Store/Theme/ThemeContext";
 
 interface ISectionCardProps {
   sectionID: string;
