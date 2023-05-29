@@ -44,7 +44,7 @@ export const DataProvider = ({ children }: IProviderProps) => {
 
   const finalUserData: IUserData = {
     user: currUserInfo,
-    expenses: { ...currExpenses },
+    expenses: currExpenses,
     actions: {
       newExpense: newExpense,
       remExpense: remExpense,

@@ -2,7 +2,7 @@ import React from "react";
 
 export interface IUserData {
   user: { [index: string]: string | number };
-  expenses: { [index: string]: string | number };
+  expenses: { [index: string]: number };
   actions: { [index: string]: Function };
 }
 
