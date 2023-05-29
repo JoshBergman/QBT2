@@ -1,0 +1,23 @@
+.backdrop {
+    background-color: #00000043;
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    
+    overflow: hidden;
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+}
+
+.childContainer {
+    width: fit-content;
+    height: fit-content;
+
+    margin: auto auto;
+}
