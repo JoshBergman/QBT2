@@ -40,6 +40,7 @@ export const DataProvider = ({ children }: IProviderProps) => {
 
     delete newExpenses[ogExpName];
     newExpenses[newExpName] = newExpAmount;
+    setCurrExpenses(newExpenses);
   };
 
   const finalUserData: IUserData = {

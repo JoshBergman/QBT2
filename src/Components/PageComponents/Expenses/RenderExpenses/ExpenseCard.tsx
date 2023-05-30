@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import styles from "./ExpenseCard.module.css";
+import ModifyMenu from "./ModifyMenu";
 
 interface IExpenseCardProps {
   label: string;
@@ -12,12 +13,40 @@ interface IExpenseCardProps {
 }
 
 const ExpenseCard = ({ label, amount, actions }: IExpenseCardProps) => {
-  const expenseState = useState("default");
+  const [expenseState, setExpenseState] = useState("default");
+
+  const enterModifyHandler = () => {
+    setExpenseState("modify");
+  };
+
+  const saveModifyHandler = (
+    ogLable: string,
+    newLabel: string,
+    amount: number
+  ) => {
+    setExpenseState("default");
+    actions.modify(ogLable, newLabel, amount);
+  };
+
+  const removeHandler = () => {
+    setExpenseState("default");
+    actions.remove(label);
+  };
+
   return (
     <div className={styles.card}>
       <h5 className={styles.textItem}>{label}</h5>
       <h5 className={styles.textItem}>{"$" + amount}</h5>
-      <button onClick={() => actions.remove(label)}>Rem</button>
+      <button onClick={enterModifyHandler}>Edit</button>
+      <button onClick={removeHandler}>Remove</button>
+      {expenseState === "modify" && (
+        <ModifyMenu
+          ogAmount={amount}
+          ogLabel={label}
+          setParentState={setExpenseState}
+          modifyFunc={saveModifyHandler}
+        />
+      )}
     </div>
   );
 };
