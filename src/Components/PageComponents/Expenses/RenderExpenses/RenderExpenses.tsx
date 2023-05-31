@@ -1,9 +1,15 @@
-import { useContext, useState } from "react";
-import { DataContext } from "../../../../Store/Data/DataContext";
-import ExpenseCard from "./ExpenseCard";
+import { useContext } from "react";
 
-const RenderExpenses = () => {
-  const [currSortMethod, setCurrSortMethod] = useState("bigToSmall");
+import ExpenseCard from "./ExpenseCard";
+import { DataContext } from "../../../../Store/Data/DataContext";
+import { sortExpenses } from "./SortExpenses";
+import ExpenseLegendCard from "./ExpenseLegendCard";
+
+interface IRenderExpensesProps {
+  currSortMethod: string;
+}
+
+const RenderExpenses = ({ currSortMethod }: IRenderExpensesProps) => {
   const dataCTX = useContext(DataContext).userData;
   const expenses = dataCTX.expenses; //returns object of expenses ex: {groceries: 20, etc}
 
@@ -21,21 +27,32 @@ const RenderExpenses = () => {
 
   const returnExpenseCards = () => {
     const expenseKeys = Object.keys(expenses);
+    const expenseArray: [string, number][] = expenseKeys.map((key) => [
+      key,
+      expenses[key],
+    ]);
+
+    const sortedExpenses = sortExpenses(currSortMethod, expenseArray);
     const cards: React.ReactNode[] = [];
 
-    expenseKeys.forEach((key) => {
+    sortedExpenses.forEach((expense) => {
       cards.push(
         <ExpenseCard
           actions={{ remove: removeHandler, modify: modifyHandler }}
-          label={key}
-          amount={expenses[key]}
-          key={key}
+          label={expense[0]}
+          amount={expense[1]}
+          key={expense[0]}
         />
       );
     });
     return cards;
   };
-  return <div>{returnExpenseCards()}</div>;
+  return (
+    <div>
+      <ExpenseLegendCard />
+      {returnExpenseCards()}
+    </div>
+  );
 };
 
 export default RenderExpenses;

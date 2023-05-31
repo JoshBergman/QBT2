@@ -1,4 +1,5 @@
-.card {
+.card,
+.legendCard {
   border-left: 3px solid;
 
   width: fit-content;
@@ -9,6 +10,9 @@
   align-items: baseline;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+
+.legendCard {
 }
 
 .textItem,
@@ -35,6 +39,6 @@
 }
 
 .modifyBtn:hover {
-  transform: translate(2px, 2px);
+  transform: translate(1.5px, 1.5px);
   cursor: pointer;
 }
