@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 
+import styles from "./ExpenseCard.module.css";
+
 interface IModifyMenuProps {
   modifyFunc: (ogLabel: string, newLabel: string, amount: number) => void;
   setParentState: (newState: string) => void;
@@ -27,7 +29,6 @@ const ModifyMenu = ({
       currentNewAmount = parseInt(newAmountRef.current.value);
     }
 
-    console.log(ogLabel, currentNewLabel, currentNewAmount);
     modifyFunc(ogLabel, currentNewLabel, currentNewAmount);
   };
 
@@ -37,16 +38,28 @@ const ModifyMenu = ({
 
   return (
     <React.Fragment>
-      <input type="text" ref={newLabelRef} placeholder={ogLabel} />
+      <input
+        type="text"
+        ref={newLabelRef}
+        defaultValue={ogLabel}
+        placeholder={"Expense Label"}
+        className={styles.input}
+      />
       <input
         type="number"
         ref={newAmountRef}
-        placeholder={ogAmount + ""}
+        defaultValue={ogAmount + ""}
+        placeholder={"Cost $USD"}
         min={1}
         max={999999}
+        className={styles.input}
       />
-      <button onClick={cancelChangesHandler}>Cancel</button>
-      <button onClick={saveChangesHandler}>Save</button>
+      <button className={styles.modifyBtn} onClick={saveChangesHandler}>
+        Save
+      </button>
+      <button className={styles.modifyBtn} onClick={cancelChangesHandler}>
+        Cancel
+      </button>
     </React.Fragment>
   );
 };

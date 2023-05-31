@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../../../../Store/Data/DataContext";
 import ExpenseCard from "./ExpenseCard";
 
 const RenderExpenses = () => {
+  const [currSortMethod, setCurrSortMethod] = useState("bigToSmall");
   const dataCTX = useContext(DataContext).userData;
   const expenses = dataCTX.expenses; //returns object of expenses ex: {groceries: 20, etc}
 

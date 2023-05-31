@@ -3,14 +3,38 @@
 
   width: fit-content;
   margin: 10px;
+  margin-left: 5%;
 
   display: flex;
   align-items: baseline;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-.textItem {
+.textItem,
+.input {
   margin: 5px;
   font-size: 20px;
   text-align: left;
+  width: 100px;
+}
+
+.input {
+  background: none;
+  border: 2px solid #5476dd;
+}
+
+.modifyBtn {
+  color: white;
+  background-color: #5476dd;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  margin: 3px;
+  transition: all 0.1s ease-in-out;
+}
+
+.modifyBtn:hover {
+  transform: translate(2px, 2px);
+  cursor: pointer;
 }

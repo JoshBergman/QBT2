@@ -35,10 +35,14 @@ const ExpenseCard = ({ label, amount, actions }: IExpenseCardProps) => {
 
   return (
     <div className={styles.card}>
-      <h5 className={styles.textItem}>{label}</h5>
-      <h5 className={styles.textItem}>{"$" + amount}</h5>
-      <button onClick={enterModifyHandler}>Edit</button>
-      <button onClick={removeHandler}>Remove</button>
+      {expenseState === "default" && (
+        <React.Fragment>
+          <h5 className={styles.textItem}>{label}</h5>
+          <h5 className={styles.textItem}>{"$" + amount}</h5>
+          <button onClick={enterModifyHandler}>Edit</button>
+          <button onClick={removeHandler}>Remove</button>
+        </React.Fragment>
+      )}
       {expenseState === "modify" && (
         <ModifyMenu
           ogAmount={amount}
