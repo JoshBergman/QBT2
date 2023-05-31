@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FiEdit } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
 
 import styles from "./ExpenseCard.module.css";
 import ModifyMenu from "./ModifyMenu";
@@ -39,8 +41,12 @@ const ExpenseCard = ({ label, amount, actions }: IExpenseCardProps) => {
         <React.Fragment>
           <h5 className={styles.textItem}>{label}</h5>
           <h5 className={styles.textItem}>{"$ " + amount}</h5>
-          <button onClick={enterModifyHandler}>Edit</button>
-          <button onClick={removeHandler}>Remove</button>
+          <button onClick={enterModifyHandler} className={styles.actionBtn}>
+            <FiEdit />
+          </button>
+          <button onClick={removeHandler} className={styles.actionBtn}>
+            <AiOutlineDelete />
+          </button>
         </React.Fragment>
       )}
       {expenseState === "modify" && (
