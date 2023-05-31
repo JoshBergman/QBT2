@@ -8,13 +8,21 @@ const ExpenseLegendCard = () => {
 
   const cardStyles = {
     backgroundColor: themeCTX.logoColor,
-    color: "white",
-    borderColor: "white",
   };
+
+  const legendTextStyles = {
+    color: "white",
+    fontSize: "16px",
+  };
+
   return (
     <div className={styles.legendCard} style={cardStyles}>
-      <h5 className={styles.textItem}>Label</h5>
-      <h5 className={styles.textItem}>Amount $</h5>
+      <h5 className={styles.textItem} style={legendTextStyles}>
+        Expense
+      </h5>
+      <h5 className={styles.textItem} style={legendTextStyles}>
+        $ / Month
+      </h5>
     </div>
   );
 };
