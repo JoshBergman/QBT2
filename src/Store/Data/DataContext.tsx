@@ -2,7 +2,7 @@ import React from "react";
 
 export interface IUserData {
   user: { [index: string]: string | number };
-  expenses: { [index: string]: number };
+  expenses: { [index: string]: [number, string] };
   actions: { [index: string]: Function };
 }
 
@@ -12,8 +12,8 @@ export const userDataDefault: IUserData = {
     location: "Tennesse",
   },
   expenses: {
-    Car: 20,
-    Dog: 60,
+    Car: [20, "cyan"],
+    Dog: [60, "teal"],
   },
   actions: {
     newExpense: () => {},

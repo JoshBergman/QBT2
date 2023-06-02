@@ -1,9 +1,9 @@
 import { useContext } from "react";
 
-import styles from './ExpenseCard.module.css';
-import ExpenseCard from "./ExpenseCard";
+import styles from "./ExpenseCard.module.css";
 import { DataContext } from "../../../../Store/Data/DataContext";
 import { sortExpenses } from "./SortExpenses";
+import ExpenseCard from "./ExpenseCard";
 import ExpenseLegendCard from "./ExpenseLegendCard";
 import NewExpense from "../NewExpense/NewExpense";
 
@@ -31,7 +31,7 @@ const RenderExpenses = ({ currSortMethod }: IRenderExpensesProps) => {
     const expenseKeys = Object.keys(expenses);
     const expenseArray: [string, number][] = expenseKeys.map((key) => [
       key,
-      expenses[key],
+      expenses[key][0],
     ]);
 
     const sortedExpenses = sortExpenses(currSortMethod, expenseArray);
