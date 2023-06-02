@@ -17,10 +17,10 @@ const ExpenseLegendCard = () => {
 
   return (
     <div className={styles.legendCard} style={cardStyles}>
-      <h5 className={styles.textItem} style={legendTextStyles}>
+      <h5 className={styles.legendtextItem} style={legendTextStyles}>
         Expense
       </h5>
-      <h5 className={styles.textItem} style={legendTextStyles}>
+      <h5 className={styles.legendtextItem} style={legendTextStyles}>
         $ / Month
       </h5>
     </div>

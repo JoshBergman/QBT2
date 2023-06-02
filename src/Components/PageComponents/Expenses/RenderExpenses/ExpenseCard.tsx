@@ -8,14 +8,23 @@ import ModifyMenu from "./ModifyMenu";
 interface IExpenseCardProps {
   label: string;
   amount: number;
+  newExpState?: () => void;
   actions: {
     remove: (label: string) => void;
     modify: (oldLabel: string, newlabel: string, newAmount: number) => void;
+    parent?: () => void;
   };
 }
 
-const ExpenseCard = ({ label, amount, actions }: IExpenseCardProps) => {
-  const [expenseState, setExpenseState] = useState("default");
+const ExpenseCard = ({
+  label,
+  amount,
+  actions,
+  newExpState,
+}: IExpenseCardProps) => {
+  const [expenseState, setExpenseState] = useState(
+    newExpState ? "modify" : "default"
+  );
 
   const enterModifyHandler = () => {
     setExpenseState("modify");
@@ -26,8 +35,12 @@ const ExpenseCard = ({ label, amount, actions }: IExpenseCardProps) => {
     newLabel: string,
     amount: number
   ) => {
-    setExpenseState("default");
     actions.modify(ogLable, newLabel, amount);
+    if (newExpState) {
+      newExpState();
+      return;
+    }
+    setExpenseState("default");
   };
 
   const removeHandler = () => {
@@ -53,6 +66,7 @@ const ExpenseCard = ({ label, amount, actions }: IExpenseCardProps) => {
         <ModifyMenu
           ogAmount={amount}
           ogLabel={label}
+          newExpState={newExpState}
           setParentState={setExpenseState}
           modifyFunc={saveModifyHandler}
         />

@@ -1,8 +1,13 @@
+.container {
+  width: clamp(260px, 60%, 800px);
+  margin-left: 5%;
+}
+
 .card,
 .legendCard {
   border-left: 3px solid;
 
-  width: 280px;
+  width: clamp(240px, 80%, 800px);
   margin: 10px;
   margin-left: 5%;
 
@@ -19,6 +24,7 @@
 }
 
 .textItem,
+.legendtextItem,
 .input {
   margin: 5px;
   font-size: 18px;
@@ -32,13 +38,18 @@
   border: 2px solid #5476dd;
 }
 
+.input,
+.textItem {
+  width: clamp(80px, 25%, 500px);
+}
+
 .modifyBtn {
   color: white;
   background-color: #5476dd;
   border: none;
   border-radius: 5px;
   padding: 8px;
-  margin: 3px;
+  margin: 1px;
   transition: all 0.1s ease-in-out;
 }
 
@@ -58,4 +69,22 @@
 .selectInput {
   border-radius: 5px;
   margin: 0;
+}
+
+@media (max-width: 610px) {
+  .container {
+    width: 95%;
+  }
+
+  .card,
+  .legendCard {
+    width: clamp(230px, 90%, 330px);
+  }
+
+  .input {
+    width: 80px;
+  }
+  .actionBtn:hover {
+    transform: none;
+  }
 }

@@ -1,9 +1,11 @@
 import { useContext } from "react";
 
+import styles from './ExpenseCard.module.css';
 import ExpenseCard from "./ExpenseCard";
 import { DataContext } from "../../../../Store/Data/DataContext";
 import { sortExpenses } from "./SortExpenses";
 import ExpenseLegendCard from "./ExpenseLegendCard";
+import NewExpense from "../NewExpense/NewExpense";
 
 interface IRenderExpensesProps {
   currSortMethod: string;
@@ -48,9 +50,10 @@ const RenderExpenses = ({ currSortMethod }: IRenderExpensesProps) => {
     return cards;
   };
   return (
-    <div style={{ width: "310px" }}>
+    <div className={styles.container}>
       <ExpenseLegendCard />
       {returnExpenseCards()}
+      <NewExpense />
     </div>
   );
 };

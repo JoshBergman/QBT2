@@ -5,6 +5,7 @@ import styles from "./ExpenseCard.module.css";
 interface IModifyMenuProps {
   modifyFunc: (ogLabel: string, newLabel: string, amount: number) => void;
   setParentState: (newState: string) => void;
+  newExpState?: () => void;
   ogLabel: string;
   ogAmount: number;
 }
@@ -14,6 +15,7 @@ const ModifyMenu = ({
   setParentState,
   ogLabel,
   ogAmount,
+  newExpState,
 }: IModifyMenuProps) => {
   const newLabelRef = useRef<HTMLInputElement>(null);
   const newAmountRef = useRef<HTMLInputElement>(null);
@@ -33,6 +35,10 @@ const ModifyMenu = ({
   };
 
   const cancelChangesHandler = () => {
+    if (newExpState) {
+      newExpState();
+      return;
+    }
     setParentState("default");
   };
 
