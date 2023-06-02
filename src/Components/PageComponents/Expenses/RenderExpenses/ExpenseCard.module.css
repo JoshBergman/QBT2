@@ -1,6 +1,6 @@
 .container {
   width: clamp(260px, 60%, 800px);
-  margin-left: 5%;
+  margin: 0 auto;
 }
 
 .card,
