@@ -48,7 +48,7 @@ const RenderExpenses = ({ currSortMethod }: IRenderExpensesProps) => {
     return cards;
   };
   return (
-    <div>
+    <div style={{ width: "310px" }}>
       <ExpenseLegendCard />
       {returnExpenseCards()}
     </div>

@@ -2,7 +2,7 @@
 .legendCard {
   border-left: 3px solid;
 
-  width: fit-content;
+  width: 280px;
   margin: 10px;
   margin-left: 5%;
 
@@ -26,7 +26,8 @@
   width: 100px;
 }
 
-.input {
+.input,
+.selectInput {
   background: none;
   border: 2px solid #5476dd;
 }
@@ -52,4 +53,9 @@
 .actionBtn:hover {
   transform: translate(1.5px, 1.5px);
   cursor: pointer;
+}
+
+.selectInput {
+  border-radius: 5px;
+  margin: 0;
 }
