@@ -28,6 +28,7 @@ const NewExpense = () => {
     <React.Fragment>
       {makingExpense && (
         <ExpenseCard
+          color={"black"}
           label={""}
           amount={0}
           newExpState={toggleMakingExpense}

@@ -46,7 +46,7 @@ const PieChart = () => {
     height: "300px",
     width: "300px",
     borderRadius: "100%",
-    transform: "rotate(0deg)",
+    transform: "rotate(180deg)",
   };
 
   return (

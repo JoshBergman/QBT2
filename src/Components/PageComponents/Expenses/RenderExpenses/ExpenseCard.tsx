@@ -8,6 +8,7 @@ import ModifyMenu from "./ModifyMenu";
 interface IExpenseCardProps {
   label: string;
   amount: number;
+  color: string;
   newExpState?: () => void;
   actions: {
     remove: (label: string) => void;
@@ -19,6 +20,7 @@ interface IExpenseCardProps {
 const ExpenseCard = ({
   label,
   amount,
+  color,
   actions,
   newExpState,
 }: IExpenseCardProps) => {
@@ -49,7 +51,7 @@ const ExpenseCard = ({
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} style={{ borderColor: color }}>
       {expenseState === "default" && (
         <React.Fragment>
           <h5 className={styles.textItem}>{label}</h5>

@@ -44,6 +44,7 @@ const RenderExpenses = ({ currSortMethod }: IRenderExpensesProps) => {
           label={expense[0]}
           amount={expense[1]}
           key={expense[0]}
+          color={expenses[expense[0]][1]}
         />
       );
     });
