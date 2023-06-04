@@ -6,8 +6,8 @@ import { ThemeContext } from "../../../../Store/Theme/ThemeContext";
 const HeaderNavigation = () => {
   const themeCTX = useContext(ThemeContext).theme;
   const links = [
-    ["Link Name", "Link"],
-    ["Second Link", "Link"],
+    ["Expenses", "#expenses"],
+    ["My Info", "#user"],
   ];
   return (
     <nav className={styles.navContainer}>
