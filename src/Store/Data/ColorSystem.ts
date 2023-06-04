@@ -1,4 +1,4 @@
-interface IColorState {
+export interface IColorState {
   colorState: {
     new: string[];
     used: string[];
@@ -46,6 +46,17 @@ export const colorSystem = {
 };
 
 export const initialColors: IColorState["colorState"] = {
-  new: ["red", "blue", "green", "pink", "purple", "yellow"],
+  new: [
+    "#3363F7",
+    "#3F3AD7",
+    "#49B3BE",
+    "#7ABBE2",
+    "#605DC1",
+    "#A082BE",
+    "#1A3998",
+    "#2E95D2",
+    "#7A94E2",
+    "#417C9F",
+  ],
   used: [],
 };

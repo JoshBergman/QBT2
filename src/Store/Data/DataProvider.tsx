@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 import { DataContext, userDataDefault, IUserData } from "./DataContext";
-import { colorSystem, initialColors } from "./ColorSystem";
+import { initialColors } from "./ColorSystem";
+import { expenseMng, IExpenseArgs } from "./ExpenseManagement";
 
 interface IProviderProps {
   children: React.ReactNode;
@@ -15,57 +16,37 @@ export const DataProvider = ({ children }: IProviderProps) => {
     userDataDefault.expenses
   );
   const [colorList, setColorList] = useState(initialColors);
+
   const colorSystemArgs = {
     colorState: colorList,
     setColorState: setColorList,
   };
 
-  //todo remove this once user info is handled. Also delete export reference of it
-  const shutupeslint = () => {
-    setCurrUserInfo({});
+  const expenseArgs: IExpenseArgs = {
+    setCurrExpenses: setCurrExpenses,
+    currExpenses: currExpenses,
+    colorSystemArgs: colorSystemArgs,
   };
 
   const newExpense = (newExpName: string, newExpAmount: number) => {
-    const newExpenses = { ...currExpenses };
-    const newExpenseColor = colorSystem.getNewColor(colorSystemArgs);
-
-    newExpenses[newExpName] = [newExpAmount, newExpenseColor];
-    setCurrExpenses(newExpenses);
+    expenseMng.newExpense(newExpName, newExpAmount, expenseArgs);
   };
 
   const remExpense = (expName: string) => {
-    const newExpenses = { ...currExpenses };
-    const freeThisColor = newExpenses[expName][1];
-
-    delete newExpenses[expName];
-    colorSystem.freeColor(colorSystemArgs, freeThisColor);
-
-    setCurrExpenses(newExpenses);
+    expenseMng.remExpense(expName, expenseArgs);
   };
 
   const modifyExpense = (
-    ogExpName: string,
-    newExpName: string,
-    newExpAmount: number
+    ogName: string,
+    newName: string,
+    newAmount: number
   ) => {
-    const newExpenses = { ...currExpenses };
-    const savedColor = newExpenses[ogExpName];
+    expenseMng.modifyExpense(ogName, newName, newAmount, expenseArgs);
+  };
 
-    let useColor = "gray";
-    if (savedColor === undefined) {
-      useColor = colorSystem.getNewColor(colorSystemArgs);
-    } else {
-      try {
-        useColor = savedColor[1];
-      } catch (e) {
-        useColor = "gray";
-      }
-    }
-
-    delete newExpenses[ogExpName];
-    newExpenses[newExpName] = [newExpAmount, useColor];
-
-    setCurrExpenses(newExpenses);
+  //todo remove this once user info is handled. Also delete export reference of it
+  const shutupeslint = () => {
+    setCurrUserInfo({});
   };
 
   const finalUserData: IUserData = {

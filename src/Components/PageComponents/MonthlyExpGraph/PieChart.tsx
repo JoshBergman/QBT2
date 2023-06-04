@@ -1,5 +1,6 @@
 import { useContext } from "react";
 
+import styles from "./Graphing.module.css";
 import { DataContext } from "../../../Store/Data/DataContext";
 import { sortExpenses } from "../Expenses/RenderExpenses/SortExpenses";
 
@@ -43,14 +44,13 @@ const PieChart = () => {
 
   const pieChartStyle = {
     backgroundImage: getConicGradString(getExpensesArray()),
-    height: "300px",
-    width: "300px",
+    height: "250px",
+    width: "250px",
     borderRadius: "100%",
-    transform: "rotate(180deg)",
   };
 
   return (
-    <div>
+    <div className={styles.pieChartContainer}>
       <div style={pieChartStyle} />
     </div>
   );
