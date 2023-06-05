@@ -15,7 +15,7 @@ const BarGraph = () => {
       const label = expense[0];
       const color = ctxExpenses[label][1];
       const heightPercent = Math.floor((expense[1] / tallest) * 100);
-      console.log(heightPercent);
+
       return (
         <div
           className={styles.bar}
@@ -27,13 +27,21 @@ const BarGraph = () => {
       );
     });
 
-    return bars;
+    return [bars, tallest];
   };
+
+  const [bars, tallest] = getBars();
 
   return (
     <div className={styles.chartContainer}>
       <h3>More Ways To Analyze</h3>
-      <div className={styles.barGraph}>{getBars()}</div>
+      <div className={styles.barLegendGraph}>
+        <div className={styles.barLegend}>
+          <p style={{ marginTop: "-10px" }}>{tallest}</p>
+          <p style={{ marginTop: "230px" }}>0</p>
+        </div>
+        <div className={styles.barGraph}>{bars}</div>
+      </div>
     </div>
   );
 };

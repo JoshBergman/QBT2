@@ -1,6 +1,6 @@
 .chartContainer {
   width: fit-content;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 .pieChart {
@@ -34,4 +34,15 @@
   width: 16px;
   margin-top: auto;
   font-size: 14px;
+}
+
+.barLegendGraph {
+  width: fit-content;
+
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.barLegend {
+  height: 250px;
 }
