@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { BsChevronCompactDown } from "react-icons/bs";
+import { BsChevronCompactUp } from "react-icons/bs";
 
 import styles from "./ExpandArrowButton.module.css";
 
-interface IExpandBtnProps {
+interface IShrinkBtnProps {
   onClick: () => void;
 }
 
-const ExpandArrowButton = ({ onClick }: IExpandBtnProps) => {
+const ShrinkButton = ({ onClick }: IShrinkBtnProps) => {
   const [currAnimation, setCurrAnimation] = useState(0);
   const onMouseEnterHandler = () => {
     setCurrAnimation(15);
@@ -18,7 +18,7 @@ const ExpandArrowButton = ({ onClick }: IExpandBtnProps) => {
   };
 
   const animationStyle = {
-    marginTop: currAnimation + "px",
+    marginBottom: currAnimation + "px",
   };
 
   return (
@@ -29,10 +29,10 @@ const ExpandArrowButton = ({ onClick }: IExpandBtnProps) => {
       onMouseLeave={onMouseLeaveHandler}
     >
       <div className={styles.btnDiv} style={animationStyle}>
-        <BsChevronCompactDown className={styles.btnIcon} />
+        <BsChevronCompactUp className={styles.btnIcon} />
       </div>
     </button>
   );
 };
 
-export default ExpandArrowButton;
+export default ShrinkButton;

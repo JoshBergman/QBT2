@@ -2,21 +2,10 @@ import { useContext } from "react";
 
 import styles from "./Graphing.module.css";
 import { DataContext } from "../../../Store/Data/DataContext";
-import { sortExpenses } from "../Expenses/RenderExpenses/SortExpenses";
+import { getSortedExpensesArray } from "./GraphingHelpers/getSortedExpensesArray";
 
 const PieChart = () => {
   const dataCTX = useContext(DataContext).userData;
-
-  const getExpensesArray = () => {
-    const keys = Object.keys(dataCTX.expenses);
-    const expensesArray: [string, number][] = keys.map((key) => [
-      key,
-      dataCTX.expenses[key][0],
-    ]);
-
-    const sortedExpenses = sortExpenses("Largest To Smallest", expensesArray);
-    return sortedExpenses;
-  };
 
   const getConicGradString = (sortedExpenses: [string, number][]) => {
     const expenses = sortedExpenses.concat([]);
@@ -43,11 +32,14 @@ const PieChart = () => {
   };
 
   const pieChartStyle = {
-    backgroundImage: getConicGradString(getExpensesArray()),
+    backgroundImage: getConicGradString(
+      getSortedExpensesArray(dataCTX.expenses)
+    ),
   };
 
   return (
-    <div className={styles.pieChartContainer}>
+    <div className={styles.chartContainer}>
+      <h3>Expenses Overview</h3>
       <div style={pieChartStyle} className={styles.pieChart}>
         <div className={styles.shader} />
       </div>

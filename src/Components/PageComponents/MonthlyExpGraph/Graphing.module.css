@@ -1,4 +1,4 @@
-.pieChartContainer {
+.chartContainer {
   width: fit-content;
   margin: 0 auto;
 }
@@ -15,4 +15,23 @@
 .shader {
   background-color: rgba(255, 255, 255, 0.097);
   height: 100%;
+}
+
+.barGraph {
+  width: 250px;
+  height: 250px;
+
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+
+  border: 3px solid black;
+  border-right: none;
+  border-top: none;
+}
+
+.bar {
+  width: 16px;
+  margin-top: auto;
+  font-size: 14px;
 }
