@@ -44,14 +44,13 @@ const PieChart = () => {
 
   const pieChartStyle = {
     backgroundImage: getConicGradString(getExpensesArray()),
-    height: "250px",
-    width: "250px",
-    borderRadius: "100%",
   };
 
   return (
     <div className={styles.pieChartContainer}>
-      <div style={pieChartStyle} />
+      <div style={pieChartStyle} className={styles.pieChart}>
+        <div className={styles.shader} />
+      </div>
     </div>
   );
 };

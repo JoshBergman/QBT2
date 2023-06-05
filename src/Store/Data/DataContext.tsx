@@ -12,8 +12,8 @@ export const userDataDefault: IUserData = {
     location: "Tennesse",
   },
   expenses: {
-    Car: [20, "cyan"],
-    Dog: [60, "teal"],
+    Car: [20, "#3366ff"],
+    Dog: [60, "#99b3ff"],
   },
   actions: {
     newExpense: () => {},

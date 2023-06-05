@@ -1,0 +1,24 @@
+.btnContainer {
+  width: fit-content;
+  height: 50px;
+
+  margin: 5px auto -20px auto;
+
+  border: none;
+  background-color: transparent;
+}
+
+.btnDiv {
+  transition: all 0.18s ease-in-out;
+}
+
+.btnIcon {
+  font-size: 35px;
+
+  margin-bottom: -20px;
+  color: #5476dd;
+}
+
+.btnContainer:hover {
+  cursor: pointer;
+}

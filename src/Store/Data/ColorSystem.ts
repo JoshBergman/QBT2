@@ -47,10 +47,16 @@ export const colorSystem = {
 
 export const initialColors: IColorState["colorState"] = {
   new: [
-    "#3363F7",
+    "#ff3333",
+    "#77ff33",
+    "#ff9999",
+    "#bbff99",
+    "#00bfff",
+    "#0039e6",
+    "#66d9ff",
     "#3F3AD7",
-    "#49B3BE",
     "#7ABBE2",
+    "#49B3BE",
     "#605DC1",
     "#A082BE",
     "#1A3998",
