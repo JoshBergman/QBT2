@@ -3,6 +3,7 @@ import { useContext } from "react";
 import styles from "./Graphing.module.css";
 import { DataContext } from "../../../Store/Data/DataContext";
 import { getSortedExpensesArray } from "./GraphingHelpers/getSortedExpensesArray";
+import ExpensesLegend from "./ExpensesLegend";
 
 const PieChart = () => {
   const dataCTX = useContext(DataContext).userData;
@@ -39,7 +40,7 @@ const PieChart = () => {
 
   return (
     <div className={styles.chartContainer}>
-      <h3>Expenses Overview</h3>
+      <ExpensesLegend />
       <div style={pieChartStyle} className={styles.pieChart}>
         <div className={styles.shader} />
       </div>

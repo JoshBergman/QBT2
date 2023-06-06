@@ -10,35 +10,39 @@ const BarGraph = () => {
   const getBars = () => {
     const expenses = getSortedExpensesArray(ctxExpenses); //[label, amount]
     const tallest: number = expenses[0][1];
+    const half: number = Math.floor(tallest / 2);
 
     const bars = expenses.map((expense) => {
       const label = expense[0];
       const color = ctxExpenses[label][1];
-      const heightPercent = Math.floor((expense[1] / tallest) * 100);
+      const amount = expense[1];
+      const heightPercent = Math.floor((amount / tallest) * 100);
 
       return (
         <div
           className={styles.bar}
           style={{ height: heightPercent + "%", backgroundColor: color }}
-          key={label}
+          key={label + "-bar"}
         >
-          {label}
+          <label className={styles.barText}>
+            {label}: ${amount}
+          </label>
         </div>
       );
     });
 
-    return [bars, tallest];
+    return [bars, tallest, half];
   };
 
-  const [bars, tallest] = getBars();
+  const [bars, tallest, half] = getBars();
 
   return (
     <div className={styles.chartContainer}>
-      <h3>More Ways To Analyze</h3>
       <div className={styles.barLegendGraph}>
         <div className={styles.barLegend}>
           <p style={{ marginTop: "-10px" }}>{tallest}</p>
-          <p style={{ marginTop: "230px" }}>0</p>
+          <p style={{ marginTop: "100px" }}>{half}</p>
+          <p style={{ marginTop: "110px" }}>0</p>
         </div>
         <div className={styles.barGraph}>{bars}</div>
       </div>

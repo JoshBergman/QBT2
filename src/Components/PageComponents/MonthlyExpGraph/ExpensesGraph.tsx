@@ -15,10 +15,12 @@ const ExpenseGraph = () => {
 
   return (
     <SectionCard sectionID="graph" title="Visualize">
+      <h3>Expenses Overview</h3>
       <PieChart />
       {!showingExtended && <ExpandArrowButton onClick={toggleExtended} />}
       {showingExtended && (
         <React.Fragment>
+          <h3>More Ways To Analyze</h3>
           <BarGraph />
           <ShrinkButton onClick={toggleExtended} />
         </React.Fragment>

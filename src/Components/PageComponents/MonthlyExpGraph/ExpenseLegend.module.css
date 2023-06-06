@@ -1,0 +1,31 @@
+.container {
+  margin: 0 20px 10px 0;
+  height: fit-content;
+  max-height: 250px;
+
+  overflow-y: scroll;
+}
+
+.colorKey {
+  height: 10px;
+  width: 10px;
+  border: 2px solid black;
+  display: inline-block;
+}
+
+.expenseContainer {
+  margin: 5px;
+
+  width: fit-content;
+}
+
+.legendLabel {
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.expenseLabel {
+  text-align: left;
+  margin: 5px;
+  font-size: 16px;
+}

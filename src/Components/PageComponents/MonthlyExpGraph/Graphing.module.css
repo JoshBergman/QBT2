@@ -1,6 +1,10 @@
 .chartContainer {
   width: fit-content;
   margin: 30px auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .pieChart {
@@ -33,7 +37,9 @@
 .bar {
   width: 16px;
   margin-top: auto;
-  font-size: 14px;
+
+  transition: all 0.04s ease-in-out;
+  color: transparent;
 }
 
 .barLegendGraph {
@@ -45,4 +51,14 @@
 
 .barLegend {
   height: 250px;
+}
+
+.bar:hover {
+  color: black;
+}
+
+.barText {
+  position: absolute;
+  z-index: 10;
+  transform: translate(-10px, -16px);
 }
