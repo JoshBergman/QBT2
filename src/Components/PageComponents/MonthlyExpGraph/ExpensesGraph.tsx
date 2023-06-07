@@ -6,6 +6,7 @@ import PieChart from "./PieChart";
 import ShrinkButton from "../../UI/Interactions/ShrinkButton";
 import BarGraph from "./BarGraph";
 import AsPercentOfIncome from "./AsPercentOfIncome";
+import ExpenseErrors from "../Expenses/RenderExpenses/ExpenseErrors";
 
 const ExpenseGraph = () => {
   const [showingExtended, setShowingExtended] = useState(false);
@@ -14,18 +15,23 @@ const ExpenseGraph = () => {
     setShowingExtended((prev) => !prev);
   };
 
+  const headRoom = {
+    marginTop: "50px",
+  };
+
   return (
     <SectionCard sectionID="graph" title="Visualize">
       <h3>Expenses Overview</h3>
       <PieChart />
+      <ExpenseErrors />
       {!showingExtended && (
         <ExpandArrowButton onClick={toggleExtended} label={"See More"} />
       )}
       {showingExtended && (
         <React.Fragment>
-          <h4>As Bar Graph</h4>
+          <h4 style={headRoom}>As Bar Graph</h4>
           <BarGraph />
-          <h4>As Percent Of Income</h4>
+          <h4 style={headRoom}>As Percent Of Income</h4>
           <AsPercentOfIncome />
           <ShrinkButton onClick={toggleExtended} />
         </React.Fragment>

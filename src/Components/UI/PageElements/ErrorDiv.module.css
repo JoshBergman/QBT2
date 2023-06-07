@@ -1,0 +1,28 @@
+.errorContainer {
+  background-color: rgba(254, 65, 91, 0.809);
+  border-radius: 10px;
+
+  width: fit-content;
+  margin: 20px auto;
+  padding: 0 15px;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+
+  color: white;
+}
+
+.msgText {
+  font-size: 16px;
+  display: block;
+}
+
+.warn {
+  display: block;
+  font-size: 30px;
+
+  margin: 0 10px 0 0;
+  transform: translateY(10px);
+}

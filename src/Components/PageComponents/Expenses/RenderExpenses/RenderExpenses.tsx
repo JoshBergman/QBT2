@@ -7,6 +7,7 @@ import ExpenseCard from "./ExpenseCard";
 import ExpenseLegendCard from "./ExpenseLegendCard";
 import NewExpense from "../NewExpense/NewExpense";
 import ExpenseTotal from "./ExpenseTotal";
+import ExpenseErrors from "./ExpenseErrors";
 
 interface IRenderExpensesProps {
   currSortMethod: string;
@@ -53,6 +54,7 @@ const RenderExpenses = ({ currSortMethod }: IRenderExpensesProps) => {
   };
   return (
     <div className={styles.container}>
+      <ExpenseErrors />
       <ExpenseLegendCard />
       <ExpenseTotal />
       {returnExpenseCards()}
