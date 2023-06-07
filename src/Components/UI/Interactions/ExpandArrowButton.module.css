@@ -22,3 +22,14 @@
 .btnContainer:hover {
   cursor: pointer;
 }
+
+.label {
+  font-size: 14px;
+  margin: 0;
+
+  text-align: center;
+  display: block;
+
+  color: #5476dd;
+  transform: translateY(30px);
+}

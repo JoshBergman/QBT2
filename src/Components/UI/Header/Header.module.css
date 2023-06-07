@@ -5,6 +5,7 @@
   font-size: 20px;
   background: linear-gradient(to right, #eef2f8, #f5f7f9);
   border-radius: 5px;
+  z-index: 100;
 }
 
 .logoText {

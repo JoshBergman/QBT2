@@ -1,13 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { BsChevronCompactDown } from "react-icons/bs";
 
 import styles from "./ExpandArrowButton.module.css";
 
 interface IExpandBtnProps {
   onClick: () => void;
+  label?: string;
 }
 
-const ExpandArrowButton = ({ onClick }: IExpandBtnProps) => {
+const ExpandArrowButton = ({ onClick, label }: IExpandBtnProps) => {
   const [currAnimation, setCurrAnimation] = useState(0);
   const onMouseEnterHandler = () => {
     setCurrAnimation(15);
@@ -22,16 +23,19 @@ const ExpandArrowButton = ({ onClick }: IExpandBtnProps) => {
   };
 
   return (
-    <button
-      onClick={onClick}
-      className={styles.btnContainer}
-      onMouseEnter={onMouseEnterHandler}
-      onMouseLeave={onMouseLeaveHandler}
-    >
-      <div className={styles.btnDiv} style={animationStyle}>
-        <BsChevronCompactDown className={styles.btnIcon} />
-      </div>
-    </button>
+    <React.Fragment>
+      {label && <label className={styles.label}>{label}</label>}
+      <button
+        onClick={onClick}
+        className={styles.btnContainer}
+        onMouseEnter={onMouseEnterHandler}
+        onMouseLeave={onMouseLeaveHandler}
+      >
+        <div className={styles.btnDiv} style={animationStyle}>
+          <BsChevronCompactDown className={styles.btnIcon} />
+        </div>
+      </button>
+    </React.Fragment>
   );
 };
 

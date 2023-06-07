@@ -15,6 +15,7 @@ interface IExpenseCardProps {
     modify: (oldLabel: string, newlabel: string, newAmount: number) => void;
     parent?: () => void;
   };
+  btnsOff?: boolean;
 }
 
 const ExpenseCard = ({
@@ -23,6 +24,7 @@ const ExpenseCard = ({
   color,
   actions,
   newExpState,
+  btnsOff,
 }: IExpenseCardProps) => {
   const [expenseState, setExpenseState] = useState(
     newExpState ? "modify" : "default"
@@ -56,12 +58,16 @@ const ExpenseCard = ({
         <React.Fragment>
           <h5 className={styles.textItem}>{label}</h5>
           <h5 className={styles.textItem}>{"$ " + amount}</h5>
-          <button onClick={enterModifyHandler} className={styles.actionBtn}>
-            <FiEdit />
-          </button>
-          <button onClick={removeHandler} className={styles.actionBtn}>
-            <AiOutlineDelete />
-          </button>
+          {!btnsOff && (
+            <React.Fragment>
+              <button onClick={enterModifyHandler} className={styles.actionBtn}>
+                <FiEdit />
+              </button>
+              <button onClick={removeHandler} className={styles.actionBtn}>
+                <AiOutlineDelete />
+              </button>
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
       {expenseState === "modify" && (
