@@ -18,7 +18,13 @@ const ExpenseErrors = () => {
     if (userMonthlyIncome <= totalExpensesCost) {
       return true;
     }
+    return false;
+  };
 
+  const noExpenses = () => {
+    if (keys.length <= 0) {
+      return true;
+    }
     return false;
   };
 
@@ -26,6 +32,9 @@ const ExpenseErrors = () => {
     <div>
       {overBudget() && (
         <ErrorDiv msg={"Over Budget: Expenses larger than income."} />
+      )}
+      {noExpenses() && (
+        <ErrorDiv msg={"No Expenses: Add expense(s) to get started."} />
       )}
     </div>
   );
