@@ -2,8 +2,9 @@ import { useContext, useState, useRef } from "react";
 
 import styles from "./UserInfo.module.css";
 import { states } from "./States";
-import SectionCard from "../../UI/PageElements/SectionCard";
 import { DataContext } from "../../../Store/Data/DataContext";
+
+import SectionCard from "../../UI/PageElements/SectionCard";
 import ErrorDiv from "../../UI/PageElements/ErrorDiv";
 
 const UserInfo = () => {
@@ -12,12 +13,11 @@ const UserInfo = () => {
   const dataCTX = useContext(DataContext).userData;
 
   const salary = dataCTX.user["salary"];
-  const location = dataCTX.user["location"];
-
-  const [currLocationOption, setCurrLocationOption] = useState(location);
   const [currSalaryInput, setCurrSalaryInput] = useState(salary);
-
   const salaryInputRef = useRef<HTMLInputElement>(null);
+
+  const location = dataCTX.user["location"];
+  const [currLocationOption, setCurrLocationOption] = useState(location);
   const locationOptionRef = useRef<HTMLSelectElement>(null);
 
   const getStatesAsOptions = () => {
@@ -25,6 +25,10 @@ const UserInfo = () => {
       <option key={state + "-location"}>{state}</option>
     ));
     return options;
+  };
+
+  const toggleEditing = () => {
+    setIsEditing((prev) => !prev);
   };
 
   const salaryChangeHandler = () => {
@@ -41,10 +45,6 @@ const UserInfo = () => {
       return;
     }
     setCurrLocationOption(locationOptionRef.current.value);
-  };
-
-  const toggleEditing = () => {
-    setIsEditing((prev) => !prev);
   };
 
   const saveChangesHandler = () => {

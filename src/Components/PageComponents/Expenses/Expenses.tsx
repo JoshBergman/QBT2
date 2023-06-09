@@ -6,8 +6,8 @@ import RenderExpenses from "./RenderExpenses/RenderExpenses";
 
 const Expenses = () => {
   const [currSortMethod, setCurrSortMethod] = useState("Largest To Smallest");
-
   const sortSelectRef = useRef<HTMLSelectElement>(null);
+
   const sortSelectHandler = () => {
     if (sortSelectRef.current === null) {
       return;

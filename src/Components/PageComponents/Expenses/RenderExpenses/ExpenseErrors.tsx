@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 import { getTotal } from "./ExpenseTotal";
 import { DataContext } from "../../../../Store/Data/DataContext";
+
 import ErrorDiv from "../../../UI/PageElements/ErrorDiv";
 
 const ExpenseErrors = () => {

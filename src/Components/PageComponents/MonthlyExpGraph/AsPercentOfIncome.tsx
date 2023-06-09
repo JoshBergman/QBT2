@@ -1,4 +1,5 @@
 import { useContext } from "react";
+
 import styles from "./PercentOfIncome.module.css";
 import { DataContext } from "../../../Store/Data/DataContext";
 import { getSortedExpensesArray } from "./GraphingHelpers/getSortedExpensesArray";

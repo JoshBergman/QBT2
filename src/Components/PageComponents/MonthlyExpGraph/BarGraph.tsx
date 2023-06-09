@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 import styles from "./Graphing.module.css";
 import { getSortedExpensesArray } from "./GraphingHelpers/getSortedExpensesArray";
@@ -53,9 +53,9 @@ const BarGraph = () => {
     <div className={styles.chartContainer}>
       <div className={styles.barLegendGraph}>
         <div className={styles.barLegend}>
-          <p style={{ marginTop: "-10px" }}>{tallest}</p>
-          <p style={{ marginTop: "100px" }}>{half}</p>
-          <p style={{ marginTop: "110px" }}>0</p>
+          <p style={{ marginTop: "-10px" }}>${tallest}</p>
+          <p style={{ marginTop: "100px" }}>${half}</p>
+          <p style={{ marginTop: "110px" }}>$0</p>
         </div>
         <div className={styles.barGraph}>{bars}</div>
       </div>

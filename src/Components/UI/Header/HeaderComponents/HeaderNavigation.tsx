@@ -9,6 +9,7 @@ const HeaderNavigation = () => {
     ["Expenses", "#expenses"],
     ["My Info", "#user"],
   ];
+
   return (
     <nav className={styles.navContainer}>
       {links.map((link) => (

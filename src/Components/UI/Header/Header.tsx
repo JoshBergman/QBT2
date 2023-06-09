@@ -1,8 +1,9 @@
 import { useContext } from "react";
 
 import styles from "./Header.module.css";
-import HeaderNavigation from "./HeaderComponents/HeaderNavigation";
 import { ThemeContext } from "../../../Store/Theme/ThemeContext";
+
+import HeaderNavigation from "./HeaderComponents/HeaderNavigation";
 
 const Header = () => {
   const themeCTX = useContext(ThemeContext).theme;

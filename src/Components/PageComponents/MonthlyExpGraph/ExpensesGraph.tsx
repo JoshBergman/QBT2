@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 
-import ExpandArrowButton from "../../UI/Interactions/ExpandArrowButton";
 import SectionCard from "../../UI/PageElements/SectionCard";
 import PieChart from "./PieChart";
-import ShrinkButton from "../../UI/Interactions/ShrinkButton";
 import BarGraph from "./BarGraph";
 import AsPercentOfIncome from "./AsPercentOfIncome";
+
+import ExpandArrowButton from "../../UI/Interactions/ExpandArrowButton";
+import ShrinkButton from "../../UI/Interactions/ShrinkButton";
 import ExpenseErrors from "../Expenses/RenderExpenses/ExpenseErrors";
 
 const ExpenseGraph = () => {

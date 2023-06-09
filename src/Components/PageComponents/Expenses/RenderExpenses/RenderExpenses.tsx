@@ -3,11 +3,12 @@ import { useContext } from "react";
 import styles from "./ExpenseCard.module.css";
 import { DataContext } from "../../../../Store/Data/DataContext";
 import { sortExpenses } from "./SortExpenses";
-import ExpenseCard from "./ExpenseCard";
-import ExpenseLegendCard from "./ExpenseLegendCard";
-import NewExpense from "../NewExpense/NewExpense";
-import ExpenseTotal from "./ExpenseTotal";
+
 import ExpenseErrors from "./ExpenseErrors";
+import ExpenseLegendCard from "./ExpenseLegendCard";
+import ExpenseTotal from "./ExpenseTotal";
+import ExpenseCard from "./ExpenseCard";
+import NewExpense from "../NewExpense/NewExpense";
 
 interface IRenderExpensesProps {
   currSortMethod: string;
@@ -52,6 +53,7 @@ const RenderExpenses = ({ currSortMethod }: IRenderExpensesProps) => {
     });
     return cards;
   };
+
   return (
     <div className={styles.container}>
       <ExpenseErrors />
