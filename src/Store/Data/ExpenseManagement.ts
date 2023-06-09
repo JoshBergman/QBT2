@@ -55,8 +55,9 @@ const modifyExpense = (
     }
   }
 
+  const newerExpName = newExpName.trim();
   delete newExpenses[ogExpName];
-  newExpenses[newExpName] = [newExpAmount, useColor];
+  newExpenses[newerExpName] = [newExpAmount, useColor];
 
   setCurrExpenses(newExpenses);
 };

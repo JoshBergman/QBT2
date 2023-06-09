@@ -2,7 +2,9 @@ import { useState } from "react";
 
 import { DataContext, userDataDefault, IUserData } from "./DataContext";
 import { initialColors } from "./ColorSystem";
+
 import { expenseMng, IExpenseArgs } from "./ExpenseManagement";
+import { IUserDataArgs, userDataMng } from "./UserDataManage";
 
 interface IProviderProps {
   children: React.ReactNode;
@@ -26,6 +28,15 @@ export const DataProvider = ({ children }: IProviderProps) => {
     setCurrExpenses: setCurrExpenses,
     currExpenses: currExpenses,
     colorSystemArgs: colorSystemArgs,
+  };
+
+  const userDataArgs: IUserDataArgs = {
+    setCurrUserInfo: setCurrUserInfo,
+    currUserInfo: currUserInfo,
+  };
+
+  const setUserInfo = (newSalary: number, newLocation: string) => {
+    userDataMng.setUserInfo(newSalary, newLocation, userDataArgs);
   };
 
   const newExpense = (newExpName: string, newExpAmount: number) => {
@@ -56,6 +67,7 @@ export const DataProvider = ({ children }: IProviderProps) => {
       newExpense: newExpense,
       remExpense: remExpense,
       modifyExpense: modifyExpense,
+      setUserInfo: setUserInfo,
       deleteme: shutupeslint,
     },
   };

@@ -1,0 +1,26 @@
+.userDataItem {
+  font-size: 18px;
+}
+
+.strong {
+  color: #5476dd;
+}
+
+.btn {
+  color: white;
+  background-color: #5476dd;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  margin: 1px;
+  transition: all 0.1s ease-in-out;
+}
+
+.btn:hover {
+  transform: translate(1.5px, 1.5px);
+  cursor: pointer;
+}
+
+.input {
+  border: 2px solid #5476dd;
+}
