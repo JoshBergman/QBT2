@@ -92,8 +92,8 @@ const UserInfo = () => {
           <select
             ref={locationOptionRef}
             onChange={locationChangeHandler}
-            value={currLocationOption}
             className={styles.input}
+            defaultValue={currLocationOption}
           >
             {getStatesAsOptions()}
           </select>

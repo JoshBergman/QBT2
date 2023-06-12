@@ -9,7 +9,7 @@ export interface IUserData {
 export const userDataDefault: IUserData = {
   user: {
     salary: 50000,
-    location: "Tennesse",
+    location: "Tennessee",
   },
   expenses: {
     Car: [20, "#3366ff"],
