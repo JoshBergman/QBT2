@@ -71,7 +71,7 @@ const FiftyThirtyTwentyPreset = ({ presetArgs }: IPresetArgs) => {
         </ModalTemplate>
       )}
       <button className={styles.btn} onClick={presetClickHandler}>
-        50 / 30 / 20
+        50 / 30 / 20 Rule
       </button>
     </React.Fragment>
   );
