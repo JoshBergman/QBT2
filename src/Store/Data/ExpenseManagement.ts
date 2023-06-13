@@ -62,8 +62,38 @@ const modifyExpense = (
   setCurrExpenses(newExpenses);
 };
 
+const setBudget = (
+  newBudget: [string, number][],
+  { setCurrExpenses, currExpenses, colorSystemArgs }: IExpenseArgs
+) => {
+  //expects newBudget => [[expenseName, expenseAmount],...]
+  if (newBudget.length <= 0) {
+    return;
+  }
+
+  //free all colors
+  colorSystem.freeAllColors(colorSystemArgs);
+
+  //set new budget to expense state
+  try {
+    const newExpenses: IUserData["expenses"] = {};
+    newBudget.forEach((expense) => {
+      const thisColor: string = colorSystem.getNewColor(colorSystemArgs);
+      const thisExpenseName: string = expense[0];
+      const thisExpenseAmount: number = expense[1];
+
+      newExpenses[thisExpenseName] = [thisExpenseAmount, thisColor];
+    });
+
+    setCurrExpenses(newExpenses);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const expenseMng = {
   newExpense: newExpense,
   remExpense: remExpense,
   modifyExpense: modifyExpense,
+  setBudget: setBudget,
 };

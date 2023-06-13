@@ -8,7 +8,7 @@ export interface IColorState {
 
 //The color system is essientially two stacks to keep track of current colors.
 // when a new color is used it is unshifted onto the 'used' array.
-// when an expense is cleared and the color becomes freed it is put back onto the top of the new array
+// when an expense is cleared and the color becomes freed it is put back onto the top of the colorState.new array
 
 // at the bottom of this file the initial colors are listed
 
@@ -40,9 +40,23 @@ const freeColor = (
   setColorState(colors);
 };
 
+const freeAllColors = ({ colorState, setColorState }: IColorState) => {
+  const colors = { ...colorState };
+  for (let i = 0; i < colors.used.length; i++) {
+    const freedColor = colors.used.shift();
+    if (freedColor === undefined) {
+      break;
+    }
+
+    colors.new.unshift(freedColor);
+  }
+  setColorState(colors);
+};
+
 export const colorSystem = {
   getNewColor: getNewColor,
   freeColor: freeColor,
+  freeAllColors,
 };
 
 export const initialColors: IColorState["colorState"] = {

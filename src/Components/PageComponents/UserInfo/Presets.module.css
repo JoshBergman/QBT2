@@ -1,0 +1,55 @@
+.modalDiv {
+  background-color: rgb(232, 232, 232);
+  width: 75vw;
+  max-width: fit-content;
+  padding: 24px;
+
+  margin: 0;
+  font-size: 19px;
+  box-shadow: 5px 5px 8px rgb(85, 84, 84);
+}
+
+.budgetType {
+  color: #5476dd;
+  text-decoration: underline;
+}
+
+.warningText {
+  color: rgb(222, 52, 52);
+  font-size: 15px;
+  display: block;
+  margin-top: 30px;
+}
+
+.btn {
+  color: white;
+  background-color: #5476dd;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  margin: 6px;
+  transition: all 0.1s ease-in-out;
+}
+
+.btn:hover {
+  transform: translate(1.5px, 1.5px);
+  cursor: pointer;
+}
+
+.title {
+  color: #5476dd;
+  margin: 40px 0 0 0;
+}
+
+.subtitle {
+  margin: 0 0 20px 0;
+}
+
+.budgetsContainer {
+  width: fit-content;
+  max-width: 330px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-evenly;
+}

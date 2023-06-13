@@ -1,23 +1,25 @@
 .backdrop {
-    background-color: #00000043;
-    position: fixed;
+  background-color: #00000087;
+  position: fixed;
 
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 100;
-    
-    overflow: hidden;
-    padding: 20px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
 
-    display: flex;
-    align-items: center;
+  overflow: hidden;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
 }
 
 .childContainer {
-    width: fit-content;
-    height: fit-content;
+  width: 100%;
+  height: fit-content;
 
-    margin: auto auto;
+  display: flex;
+  flex-wrap: none;
+  justify-content: center;
 }

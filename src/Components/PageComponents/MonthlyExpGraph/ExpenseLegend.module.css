@@ -2,8 +2,10 @@
   margin: 0 20px 10px 0;
   height: fit-content;
   max-height: 250px;
+  max-width: 250px;
 
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .colorKey {
@@ -11,12 +13,16 @@
   width: 10px;
   border: 2px solid black;
   display: inline-block;
+  margin-top: 8px;
 }
 
 .expenseContainer {
   margin: 5px;
+  width: 100%;
 
-  width: fit-content;
+  display: flex;
+  justify-content: left;
+  flex-wrap: nowrap;
 }
 
 .legendLabel {
@@ -28,4 +34,5 @@
   text-align: left;
   margin: 5px;
   font-size: 16px;
+  width: 100%;
 }

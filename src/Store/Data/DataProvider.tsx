@@ -47,17 +47,16 @@ export const DataProvider = ({ children }: IProviderProps) => {
     expenseMng.remExpense(expName, expenseArgs);
   };
 
+  const setBudget = (newBudget: [string, number][]) => {
+    expenseMng.setBudget(newBudget, expenseArgs);
+  };
+
   const modifyExpense = (
     ogName: string,
     newName: string,
     newAmount: number
   ) => {
     expenseMng.modifyExpense(ogName, newName, newAmount, expenseArgs);
-  };
-
-  //todo remove this once user info is handled. Also delete export reference of it
-  const shutupeslint = () => {
-    setCurrUserInfo({});
   };
 
   const finalUserData: IUserData = {
@@ -67,8 +66,8 @@ export const DataProvider = ({ children }: IProviderProps) => {
       newExpense: newExpense,
       remExpense: remExpense,
       modifyExpense: modifyExpense,
+      setBudget: setBudget,
       setUserInfo: setUserInfo,
-      deleteme: shutupeslint,
     },
   };
 

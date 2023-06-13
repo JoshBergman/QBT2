@@ -32,6 +32,8 @@
   border: 3px solid black;
   border-right: none;
   border-top: none;
+
+  overflow-x: hidden;
 }
 
 .bar {
@@ -44,9 +46,12 @@
 
 .barLegendGraph {
   width: fit-content;
+  max-width: 250px;
 
   display: flex;
   flex-wrap: nowrap;
+
+  text-overflow: ellipsis;
 }
 
 .barLegend {

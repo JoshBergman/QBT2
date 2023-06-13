@@ -6,6 +6,7 @@ import { DataContext } from "../../../Store/Data/DataContext";
 
 import SectionCard from "../../UI/PageElements/SectionCard";
 import ErrorDiv from "../../UI/PageElements/ErrorDiv";
+import BudgetPresets from "./BudgetPresets";
 
 const UserInfo = () => {
   const [currError, setCurrError] = useState("");
@@ -109,6 +110,7 @@ const UserInfo = () => {
           Save Changes
         </button>
       )}
+      <BudgetPresets />
     </SectionCard>
   );
 };

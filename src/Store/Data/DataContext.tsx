@@ -19,6 +19,8 @@ export const userDataDefault: IUserData = {
     newExpense: () => {},
     remExpense: () => {},
     modifyExpense: () => {},
+    setBudget: () => {},
+    setUserInfo: () => {},
   },
 };
 

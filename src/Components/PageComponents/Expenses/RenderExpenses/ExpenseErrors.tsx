@@ -16,7 +16,7 @@ const ExpenseErrors = () => {
   const totalExpensesCost: number = getTotal(keys, expenses);
 
   const overBudget = () => {
-    if (userMonthlyIncome <= totalExpensesCost) {
+    if (userMonthlyIncome < totalExpensesCost) {
       return true;
     }
     return false;
