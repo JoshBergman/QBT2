@@ -1,5 +1,5 @@
 .container {
-  width: clamp(260px, 60%, 800px);
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -72,10 +72,6 @@
 }
 
 @media (max-width: 610px) {
-  .container {
-    width: 95%;
-  }
-
   .card,
   .legendCard {
     width: clamp(230px, 90%, 330px);
@@ -86,5 +82,12 @@
   }
   .actionBtn:hover {
     transform: none;
+  }
+
+  .textItem {
+    font-size: 15px;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }

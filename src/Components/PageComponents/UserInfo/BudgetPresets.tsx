@@ -4,6 +4,7 @@ import styles from "./Presets.module.css";
 import { DataContext } from "../../../Store/Data/DataContext";
 
 import FiftyThirtyTwentyPreset from "./Presets/FiftyThirty";
+import MedianPreset from "./Presets/Median";
 
 export interface IPresetArgs {
   presetArgs: {
@@ -55,8 +56,7 @@ const BudgetPresets = () => {
       </h5>
       <div className={styles.budgetsContainer}>
         <FiftyThirtyTwentyPreset presetArgs={presetArgs.presetArgs} />
-        <FiftyThirtyTwentyPreset presetArgs={presetArgs.presetArgs} />
-        <FiftyThirtyTwentyPreset presetArgs={presetArgs.presetArgs} />
+        <MedianPreset presetArgs={presetArgs.presetArgs} />
       </div>
     </div>
   );

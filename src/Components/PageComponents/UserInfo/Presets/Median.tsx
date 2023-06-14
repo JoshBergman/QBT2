@@ -4,31 +4,27 @@ import styles from "../Presets.module.css";
 import ModalTemplate from "../../../UI/PageElements/ModalTemplate";
 
 import { IPresetArgs } from "../BudgetPresets";
+import { getMedianBudget } from "./PresetHelpers/MedianCalc";
 
-const FiftyThirtyTwentyPreset = ({ presetArgs }: IPresetArgs) => {
+const MedianPreset = ({ presetArgs }: IPresetArgs) => {
   const { modalState, setModalState, warningMsg, setExpenses, userInfo } =
     presetArgs;
 
   const readMoreLink =
-    "https://www.nerdwallet.com/article/finance/nerdwallet-budget-calculator";
+    "https://www.fool.com/the-ascent/research/average-monthly-expenses/";
 
   const createBudget = () => {
     const monthlyIncome = userInfo.salary / 12;
-    const necessities = Math.floor(monthlyIncome * 0.5);
-    const wants = Math.floor(monthlyIncome * 0.3);
-    const savings = Math.floor(monthlyIncome * 0.2);
-
-    if (necessities <= 0 || wants <= 0 || savings <= 0) {
+    if (monthlyIncome <= 0) {
       return;
     }
 
-    const fiftyThirtyBudget: [string, number][] = [
-      ["Necessities", necessities],
-      ["Wants", wants],
-      ["Savings & Debt Repayment", savings],
-    ];
+    const medianBudget: [string, number][] = getMedianBudget(
+      userInfo.location,
+      monthlyIncome
+    );
 
-    setExpenses(fiftyThirtyBudget);
+    setExpenses(medianBudget);
   };
 
   const confirmClickHandler = () => {
@@ -41,14 +37,15 @@ const FiftyThirtyTwentyPreset = ({ presetArgs }: IPresetArgs) => {
   };
 
   const presetClickHandler = () => {
-    setModalState("fifty");
+    setModalState("median");
   };
-
-  const fiftyThirtyMsg = (
+  const medianMsg = (
     <p>
       Apply the{" "}
       <a rel="noreferrer" target="_blank" href={readMoreLink}>
-        <strong className={styles.budgetType}>50 / 30 / 20</strong>
+        <strong className={styles.budgetType}>
+          Median Expenses for Location
+        </strong>
       </a>{" "}
       budget preset?
       {warningMsg}
@@ -57,10 +54,10 @@ const FiftyThirtyTwentyPreset = ({ presetArgs }: IPresetArgs) => {
 
   return (
     <React.Fragment>
-      {modalState === "fifty" && (
+      {modalState === "median" && (
         <ModalTemplate>
           <div className={styles.modalDiv}>
-            {fiftyThirtyMsg}
+            {medianMsg}
             <button className={styles.btn} onClick={confirmClickHandler}>
               Confirm
             </button>
@@ -71,10 +68,10 @@ const FiftyThirtyTwentyPreset = ({ presetArgs }: IPresetArgs) => {
         </ModalTemplate>
       )}
       <button className={styles.btn} onClick={presetClickHandler}>
-        50 / 30 / 20 Rule
+        Median Expenses
       </button>
     </React.Fragment>
   );
 };
 
-export default FiftyThirtyTwentyPreset;
+export default MedianPreset;
