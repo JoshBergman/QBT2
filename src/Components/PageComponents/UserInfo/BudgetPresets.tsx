@@ -5,6 +5,7 @@ import { DataContext } from "../../../Store/Data/DataContext";
 
 import FiftyThirtyTwentyPreset from "./Presets/FiftyThirty";
 import MedianPreset from "./Presets/Median";
+import BoilerplatePreset from "./Presets/Boilerplate";
 
 export interface IPresetArgs {
   presetArgs: {
@@ -57,6 +58,7 @@ const BudgetPresets = () => {
       <div className={styles.budgetsContainer}>
         <FiftyThirtyTwentyPreset presetArgs={presetArgs.presetArgs} />
         <MedianPreset presetArgs={presetArgs.presetArgs} />
+        <BoilerplatePreset presetArgs={presetArgs.presetArgs} />
       </div>
     </div>
   );
