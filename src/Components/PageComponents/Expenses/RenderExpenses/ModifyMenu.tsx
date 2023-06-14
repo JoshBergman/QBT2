@@ -23,6 +23,7 @@ const ModifyMenu = ({
   const saveChangesHandler = () => {
     let currentNewLabel: string;
     let currentNewAmount: number;
+
     if (newAmountRef.current === null || newLabelRef.current == null) {
       currentNewLabel = ogLabel;
       currentNewAmount = ogAmount;
