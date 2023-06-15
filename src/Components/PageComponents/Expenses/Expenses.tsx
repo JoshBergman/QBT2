@@ -5,6 +5,7 @@ import SectionCard from "../../UI/PageElements/SectionCard";
 import RenderExpenses from "./RenderExpenses/RenderExpenses";
 
 const Expenses = () => {
+  const [showingRemaining, setShowingRemaining] = useState(false);
   const [currSortMethod, setCurrSortMethod] = useState("Largest To Smallest");
   const sortSelectRef = useRef<HTMLSelectElement>(null);
 
@@ -13,6 +14,10 @@ const Expenses = () => {
       return;
     }
     setCurrSortMethod(sortSelectRef.current.value);
+  };
+
+  const checkBoxHandler = () => {
+    setShowingRemaining((prev) => !prev);
   };
 
   return (
@@ -25,7 +30,21 @@ const Expenses = () => {
         <option>Largest To Smallest</option>
         <option>Smallest To Largest</option>
       </select>
-      <RenderExpenses currSortMethod={currSortMethod} />
+      <div className={styles.labelDiv}>
+        <input
+          className={styles.selectInput}
+          id="show"
+          type="checkbox"
+          onChange={checkBoxHandler}
+        />
+        <label className={styles.label} htmlFor="show">
+          Show Remaining Income
+        </label>
+      </div>
+      <RenderExpenses
+        showingRemaining={showingRemaining}
+        currSortMethod={currSortMethod}
+      />
     </SectionCard>
   );
 };

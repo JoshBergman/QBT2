@@ -9,12 +9,17 @@ import ExpenseLegendCard from "./ExpenseLegendCard";
 import ExpenseTotal from "./ExpenseTotal";
 import ExpenseCard from "./ExpenseCard";
 import NewExpense from "../NewExpense/NewExpense";
+import RemainingIncome from "./RemainingIncome";
 
 interface IRenderExpensesProps {
   currSortMethod: string;
+  showingRemaining: boolean;
 }
 
-const RenderExpenses = ({ currSortMethod }: IRenderExpensesProps) => {
+const RenderExpenses = ({
+  currSortMethod,
+  showingRemaining,
+}: IRenderExpensesProps) => {
   const dataCTX = useContext(DataContext).userData;
   const expenses = dataCTX.expenses; //returns object of expenses ex: {groceries: 20, etc}
 
@@ -58,6 +63,7 @@ const RenderExpenses = ({ currSortMethod }: IRenderExpensesProps) => {
     <div className={styles.container}>
       <ExpenseErrors />
       <ExpenseLegendCard />
+      {showingRemaining && <RemainingIncome />}
       <ExpenseTotal />
       {returnExpenseCards()}
       <NewExpense />
