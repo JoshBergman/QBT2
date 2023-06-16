@@ -12,3 +12,9 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+@media (max-width: 450px) {
+  .navLink {
+    font-size: 20px;
+  }
+}

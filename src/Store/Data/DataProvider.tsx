@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import { DataContext, userDataDefault, IUserData } from "./DataContext";
-import { initialColors } from "./ColorSystem";
+import { initialColors } from "./DataManage/ColorSystem";
 
-import { expenseMng, IExpenseArgs } from "./ExpenseManagement";
-import { IUserDataArgs, userDataMng } from "./UserDataManage";
+import { expenseMng, IExpenseArgs } from "./DataManage/ExpenseManagement";
+import { IUserDataArgs, userDataMng } from "./DataManage/UserDataManage";
 
 interface IProviderProps {
   children: React.ReactNode;

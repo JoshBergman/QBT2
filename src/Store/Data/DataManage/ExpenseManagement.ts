@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { colorSystem, IColorState } from "./ColorSystem";
-import { IUserData } from "./DataContext";
+import { IUserData } from "../DataContext";
 
 export interface IExpenseArgs {
   setCurrExpenses: Dispatch<

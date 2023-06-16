@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { IUserData } from "./DataContext";
+import { IUserData } from "../DataContext";
 
 export interface IUserDataArgs {
   setCurrUserInfo: Dispatch<SetStateAction<IUserData["user"]>>;

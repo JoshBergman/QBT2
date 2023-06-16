@@ -6,6 +6,7 @@ import App from "./App";
 
 import { ThemeProvider } from "./Store/Theme/ThemeProvider";
 import { DataProvider } from "./Store/Data/DataProvider";
+import { AuthProvider } from "./Store/Auth/AuthProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <ThemeProvider>
       <DataProvider>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </DataProvider>
     </ThemeProvider>
   </React.StrictMode>

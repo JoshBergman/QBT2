@@ -12,3 +12,9 @@
   margin: 0;
   display: inline;
 }
+
+@media (max-width: 470px) {
+  .header {
+    font-size: 20px;
+  }
+}
