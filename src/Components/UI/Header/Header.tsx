@@ -13,8 +13,10 @@ export interface ILoggingInState {
 }
 
 const Header = () => {
+  const previouslyVisited =
+    localStorage.getItem("agreed") === null ? true : false;
   const [size, setSize] = useState([0, 0]);
-  const [loggingIn, setLoggingIn] = useState(false);
+  const [loggingIn, setLoggingIn] = useState(previouslyVisited);
   const themeCTX = useContext(ThemeContext).theme;
 
   useLayoutEffect(() => {

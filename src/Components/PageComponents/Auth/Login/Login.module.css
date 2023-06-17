@@ -4,7 +4,60 @@
   max-width: 600px;
   padding: 24px;
 
+  z-index: 40;
   margin: 0;
-  font-size: 19px;
+  font-size: 18px;
   box-shadow: 5px 5px 8px rgb(85, 84, 84);
+}
+
+.altStatusBtn {
+  background-color: transparent;
+  border: none;
+  color: #5476dd;
+  text-decoration: underline;
+}
+
+.altStatusBtn:hover {
+  cursor: pointer;
+}
+
+.label {
+  display: block;
+  margin: 10px 0 0 0;
+}
+
+.input {
+  display: inline-block;
+  border: 2px solid #5476dd;
+  margin: 0 0 10px 0;
+  width: clamp(200px, 100%, 600px);
+  height: 18px;
+  font-size: 16px;
+}
+
+.guestBtn {
+  display: block;
+  color: white;
+  background-color: #5476dd;
+  border: none;
+  border-radius: 5px;
+  padding: 6px;
+  margin: 20px auto 5px auto;
+  transition: all 0.1s ease-in-out;
+  font-size: 14px;
+}
+
+.guestBtn:hover {
+  transform: translate(1.5px, 1.5px);
+  cursor: pointer;
+}
+
+.center {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  color: #5476dd;
 }
