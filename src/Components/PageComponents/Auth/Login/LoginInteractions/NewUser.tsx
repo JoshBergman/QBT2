@@ -1,17 +1,23 @@
 import React, { useState, useContext, useRef } from "react";
 
 import styles from "../Login.module.css";
+import ErrorDiv from "../../../../UI/PageElements/ErrorDiv";
+import { AuthContext } from "../../../../../Store/Auth/AuthContext";
 
 const NewUser = () => {
+  const authCTX = useContext(AuthContext);
   const [currEmail, setCurrEmail] = useState("");
   const [currPassword, setCurrPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [currError, setCurrError] = useState("");
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
   const emailChangeHandler = () => {
+    setCurrError("");
+
     if (emailRef.current === null) {
       return;
     }
@@ -20,6 +26,8 @@ const NewUser = () => {
   };
 
   const passwordChangeHandler = () => {
+    setCurrError("");
+
     if (passwordRef.current === null) {
       return;
     }
@@ -28,6 +36,8 @@ const NewUser = () => {
   };
 
   const confirmPasswordChangeHandler = () => {
+    setCurrError("");
+
     if (confirmPasswordRef.current === null) {
       return;
     }
@@ -35,8 +45,30 @@ const NewUser = () => {
     setConfirmPassword(confirmPassword);
   };
 
+  const signUpHandler = () => {
+    if (currPassword !== confirmPassword) {
+      setCurrError("Error: Passwords do not match.");
+    }
+    console.log("signedIn");
+  };
+
+  const getInputValidity = () => {
+    if (
+      currEmail.length < 5 ||
+      currPassword.length < 5 ||
+      confirmPassword.length < 5
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const inputValidity = getInputValidity();
+
   return (
     <React.Fragment>
+      {currError !== "" && <ErrorDiv msg={currError} />}
       <label htmlFor="email" className={styles.label}>
         Email:{" "}
       </label>
@@ -73,6 +105,14 @@ const NewUser = () => {
         placeholder="Confirm Password"
         className={styles.input}
       />
+      <button
+        className={styles.btn}
+        disabled={inputValidity}
+        style={{ backgroundColor: inputValidity ? "gray" : "#5476dd" }}
+        onClick={signUpHandler}
+      >
+        Sign In
+      </button>
     </React.Fragment>
   );
 };

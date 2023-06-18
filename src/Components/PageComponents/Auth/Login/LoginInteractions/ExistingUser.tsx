@@ -1,15 +1,21 @@
 import React, { useState, useRef, useContext } from "react";
 
 import styles from "../Login.module.css";
+import ErrorDiv from "../../../../UI/PageElements/ErrorDiv";
+import { AuthContext } from "../../../../../Store/Auth/AuthContext";
 
 const ExistingUser = () => {
+  const authCTX = useContext(AuthContext);
   const [currEmail, setCurrEmail] = useState("");
   const [currPassword, setCurrPassword] = useState("");
+  const [currError, setCurrError] = useState("");
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const emailChangeHandler = () => {
+    setCurrError("");
+
     if (emailRef.current === null) {
       return;
     }
@@ -18,6 +24,8 @@ const ExistingUser = () => {
   };
 
   const passwordChangeHandler = () => {
+    setCurrError("");
+
     if (passwordRef.current === null) {
       return;
     }
@@ -26,15 +34,33 @@ const ExistingUser = () => {
   };
 
   const signInHandler = () => {
+    if (true) {
+      setCurrError(
+        "Sign-In Error: Check email and password are entered correctly."
+      );
+    }
     console.log("signedIn");
   };
 
   const getInputValidity = () => {
+    if (emailRef.current == null || passwordRef.current == null) {
+      return true;
+    }
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    if (email.length < 5 || password.length < 5) {
+      return true;
+    }
+
     return false;
   };
 
+  const inputValidity = getInputValidity();
+
   return (
     <React.Fragment>
+      {currError !== "" && <ErrorDiv msg={currError} />}
       <label htmlFor="email" className={styles.label}>
         Email: {currEmail}{" "}
       </label>
@@ -61,7 +87,8 @@ const ExistingUser = () => {
       />
       <button
         className={styles.btn}
-        disabled={getInputValidity()}
+        disabled={inputValidity}
+        style={{ backgroundColor: inputValidity ? "gray" : "#5476dd" }}
         onClick={signInHandler}
       >
         Sign In

@@ -35,7 +35,8 @@
   font-size: 16px;
 }
 
-.guestBtn {
+.guestBtn,
+.btn {
   display: block;
   color: white;
   background-color: #5476dd;
@@ -47,7 +48,8 @@
   font-size: 14px;
 }
 
-.guestBtn:hover {
+.guestBtn:hover,
+.btn:hover {
   transform: translate(1.5px, 1.5px);
   cursor: pointer;
 }
@@ -60,4 +62,9 @@
 .title {
   text-align: center;
   color: #5476dd;
+}
+
+.btn {
+  display: inline;
+  margin: 2px;
 }
