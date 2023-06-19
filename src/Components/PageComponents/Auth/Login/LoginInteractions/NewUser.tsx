@@ -111,7 +111,7 @@ const NewUser = () => {
         style={{ backgroundColor: inputValidity ? "gray" : "#5476dd" }}
         onClick={signUpHandler}
       >
-        Sign In
+        Sign Up
       </button>
     </React.Fragment>
   );
