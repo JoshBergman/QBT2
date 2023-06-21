@@ -6,6 +6,7 @@ import ExpenseGraph from "./Components/PageComponents/MonthlyExpGraph/ExpensesGr
 import Expenses from "./Components/PageComponents/Expenses/Expenses";
 import UserInfo from "./Components/PageComponents/UserInfo/UserInfo";
 import OnPageLoadMsg from "./Components/UI/Interactions/OnPageLoadMsg";
+import Copyright from "./Components/UI/PageElements/Copyright";
 
 function App() {
   addSiteView();
@@ -16,6 +17,7 @@ function App() {
       <ExpenseGraph />
       <Expenses />
       <UserInfo />
+      <Copyright />
     </div>
   );
 }
