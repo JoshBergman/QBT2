@@ -1,10 +1,10 @@
 import { useState, useContext, useRef } from "react";
 
-import styles from "./Mng.module.css";
-import ModalTemplate from "../../../UI/PageElements/ModalTemplate";
+import { AuthContext } from "../../../../Store/Auth/AuthContext";
 import findErrors from "./Helpers/Errors/findErrors";
 import { IDisplayState } from "./AccountManage";
-import { AuthContext } from "../../../../Store/Auth/AuthContext";
+
+import ModalTemplate from "../../../UI/PageElements/ModalTemplate";
 import ErrorDiv from "../../../UI/PageElements/ErrorDiv";
 
 const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {

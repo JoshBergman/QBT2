@@ -1,19 +1,32 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, FormEvent } from "react";
 
 import styles from "../Login.module.css";
-import ErrorDiv from "../../../../UI/PageElements/ErrorDiv";
 import { AuthContext } from "../../../../../Store/Auth/AuthContext";
+import validateEmail from "../../AccountManage/Helpers/Errors/validateEmail";
+import validatePassword from "../../AccountManage/Helpers/Errors/validatePassword";
+
+import ErrorDiv from "../../../../UI/PageElements/ErrorDiv";
+import signUp from "../API/signUp";
+import { DataContext } from "../../../../../Store/Data/DataContext";
 
 const NewUser = () => {
-  const authCTX = useContext(AuthContext);
+  const authCTX = useContext(AuthContext).auth;
+  const dataCTX = useContext(DataContext).userData;
   const [currEmail, setCurrEmail] = useState("");
   const [currPassword, setCurrPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [currConfirmPassword, setCurrConfirmPassword] = useState("");
   const [currError, setCurrError] = useState("");
+  const [showingPasswords, setShowingPasswords] = useState(false);
+  const [currSuccess, setCurrSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
+  const toggleShowingPasswords = () => {
+    setShowingPasswords((prev) => !prev);
+  };
 
   const emailChangeHandler = () => {
     setCurrError("");
@@ -42,77 +55,122 @@ const NewUser = () => {
       return;
     }
     const confirmPassword = confirmPasswordRef.current.value;
-    setConfirmPassword(confirmPassword);
+    setCurrConfirmPassword(confirmPassword);
   };
 
-  const signUpHandler = () => {
-    if (currPassword !== confirmPassword) {
-      setCurrError("Error: Passwords do not match.");
+  const signUpHandler = async (event: FormEvent) => {
+    event.preventDefault();
+    if (loading) {
+      return;
     }
-    console.log("signedIn");
+    if (currPassword !== currConfirmPassword) {
+      setCurrError("Error: Passwords do not match.");
+      return;
+    }
+
+    const expensesKeys = Object.keys(dataCTX.expenses);
+    const expenses: [string, number][] = expensesKeys.map((key) => [
+      key,
+      dataCTX.expenses[key][0],
+    ]);
+
+    setLoading(true);
+    await signUp(currEmail, currPassword, expenses).then((response) => {
+      //response === [success: boolean, sessionID: null | string, msg: string]
+
+      try {
+        const status: boolean = response[0];
+        const sessionID: string = response[1];
+        const msg: string = response[2];
+
+        //success case
+        if (status) {
+          authCTX.actions.authenticate(sessionID, currEmail);
+          setCurrEmail("");
+          setCurrPassword("");
+          setCurrConfirmPassword("");
+          setCurrSuccess("Account Successfully Created!");
+        }
+
+        //fail case
+        if (!status) {
+          setCurrError(msg);
+        }
+      } catch (err) {
+        //super-fail case
+        setCurrError("Server Error. Please try again later.");
+      }
+    });
+    setLoading(false);
   };
 
   const getInputValidity = () => {
-    if (
-      currEmail.length < 5 ||
-      currPassword.length < 5 ||
-      confirmPassword.length < 5
-    ) {
-      return true;
+    const validEmail = validateEmail(currEmail);
+    const validPass = validatePassword(currPassword);
+    const validConfirm = validatePassword(currConfirmPassword);
+
+    if (validEmail && validPass && validConfirm) {
+      return !true;
     }
 
-    return false;
+    return !false;
   };
 
   const inputValidity = getInputValidity();
+  const passwordType = showingPasswords ? "text" : "password";
 
   return (
     <React.Fragment>
       {currError !== "" && <ErrorDiv msg={currError} />}
-      <label htmlFor="email" className={styles.label}>
+      {currSuccess === "" ? "" : currSuccess}
+      <label htmlFor="show-pass">Show Passwords:</label>
+      <input id="show-pass" type="checkbox" onChange={toggleShowingPasswords} />
+      <label htmlFor="email" className="label">
         Email:{" "}
       </label>
-      <input
-        type="email"
-        id="email"
-        onChange={emailChangeHandler}
-        ref={emailRef}
-        autoComplete="off"
-        placeholder="Email"
-        className={styles.input}
-      />
-      <label htmlFor="password" className={styles.label}>
-        Password:{" "}
-      </label>
-      <input
-        type="text"
-        id="password"
-        onChange={passwordChangeHandler}
-        ref={passwordRef}
-        autoComplete="off"
-        placeholder="Password"
-        className={styles.input}
-      />
-      <label htmlFor="confirm-password" className={styles.label}>
-        Confirm Password:{" "}
-      </label>
-      <input
-        type="text"
-        id="confirm-password"
-        onChange={confirmPasswordChangeHandler}
-        ref={confirmPasswordRef}
-        autoComplete="off"
-        placeholder="Confirm Password"
-        className={styles.input}
-      />
-      <button
-        className={styles.btn}
-        disabled={inputValidity}
-        style={{ backgroundColor: inputValidity ? "gray" : "#5476dd" }}
-        onClick={signUpHandler}
-      >
-        Sign Up
-      </button>
+      <form className="form" onSubmit={signUpHandler}>
+        <input
+          type="email"
+          id="email"
+          onChange={emailChangeHandler}
+          ref={emailRef}
+          autoComplete="off"
+          placeholder="Email"
+          className="input"
+        />
+        <label htmlFor="password" className="label">
+          Password:{" "}
+        </label>
+        <input
+          type={passwordType}
+          id="password"
+          onChange={passwordChangeHandler}
+          ref={passwordRef}
+          autoComplete="off"
+          placeholder="Password"
+          className="input"
+        />
+        <label htmlFor="confirm-password" className="label">
+          Confirm Password:{" "}
+        </label>
+        <input
+          type={passwordType}
+          id="confirm-password"
+          onChange={confirmPasswordChangeHandler}
+          ref={confirmPasswordRef}
+          autoComplete="off"
+          placeholder="Confirm Password"
+          className="input"
+        />
+        <button
+          className={styles.btn}
+          disabled={inputValidity}
+          style={{ backgroundColor: inputValidity ? "gray" : "#5476dd" }}
+          type="submit"
+        >
+          {loading ? "Loading..." : "Sign Up"}
+        </button>
+      </form>
     </React.Fragment>
   );
 };
