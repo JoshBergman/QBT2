@@ -14,12 +14,16 @@ export const AuthProvider = ({ children }: IProviderProps) => {
     authDefault.authToken
   );
 
-  const authenticate = () => {
+  const authenticate = (sessionID: string) => {
     setCurrAuth(true);
+    setCurrToken(sessionID);
+    localStorage.setItem("s", sessionID);
   };
 
   const deauthenticate = () => {
     setCurrAuth(false);
+    setCurrToken("");
+    localStorage.removeItem("s");
   };
 
   const setAuthToken = (newToken: string) => {

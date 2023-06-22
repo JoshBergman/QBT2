@@ -1,12 +1,13 @@
 import { useContext, useState, useRef } from "react";
 
 import styles from "./UserInfo.module.css";
-import { states } from "./States";
+import { states } from "./Helpers/States";
 import { DataContext } from "../../../Store/Data/DataContext";
 
 import SectionCard from "../../UI/PageElements/SectionCard";
 import ErrorDiv from "../../UI/PageElements/ErrorDiv";
 import BudgetPresets from "./BudgetPresets";
+import MyAccount from "../Auth/AccountManage/MyAccount";
 
 const UserInfo = () => {
   const [currError, setCurrError] = useState("");
@@ -111,6 +112,7 @@ const UserInfo = () => {
         </button>
       )}
       <BudgetPresets />
+      <MyAccount />
     </SectionCard>
   );
 };

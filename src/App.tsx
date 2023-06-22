@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import "./App.css";
 import { addSiteView } from "./Components/UI/Interactions/InteractionHelpers/AddView";
 
@@ -9,7 +11,9 @@ import OnPageLoadMsg from "./Components/UI/Interactions/OnPageLoadMsg";
 import Copyright from "./Components/UI/PageElements/Copyright";
 
 function App() {
-  addSiteView();
+  useEffect(() => {
+    addSiteView();
+  });
   return (
     <div className="appControl">
       <Header />
