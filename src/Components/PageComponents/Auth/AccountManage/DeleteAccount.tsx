@@ -7,15 +7,13 @@ import { IDisplayState } from "./AccountManage";
 import ModalTemplate from "../../../UI/PageElements/ModalTemplate";
 import ErrorDiv from "../../../UI/PageElements/ErrorDiv";
 
-const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
+const DeleteAccount = ({ toggleDisplaying }: IDisplayState) => {
   const [showingPasswords, setShowingPasswords] = useState(false);
   const [currErrors, setCurrErrors] = useState<string[]>([]);
   const authCTX = useContext(AuthContext).auth;
 
   const emailRef = useRef<HTMLInputElement>(null);
-  const existingPassRef = useRef<HTMLInputElement>(null);
-  const newPassRef = useRef<HTMLInputElement>(null);
-  const confirmNewPassRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const toggleShowingPasswords = () => {
     setShowingPasswords((prev) => !prev);
@@ -25,29 +23,17 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
     toggleDisplaying();
   };
 
-  const changePasswordHandler = (event: FormEvent) => {
+  const DeleteAccountHandler = (event: FormEvent) => {
     event.preventDefault();
-    if (
-      !emailRef.current ||
-      !existingPassRef.current ||
-      !newPassRef.current ||
-      !confirmNewPassRef.current
-    ) {
+    if (!emailRef.current || !passwordRef.current) {
       setCurrErrors(["Check all fields for valid input."]);
       return;
     }
 
     const email = emailRef.current.value;
-    const existingPassword = existingPassRef.current.value;
-    const newPassword = newPassRef.current.value;
-    const confirmNewPassword = confirmNewPassRef.current.value;
+    const password = passwordRef.current.value;
 
-    const errors = findErrors.findChangePasswordErrors(
-      email,
-      existingPassword,
-      newPassword,
-      confirmNewPassword
-    );
+    const errors = findErrors.findDelAccErrors(email, password);
     setCurrErrors(errors);
 
     if (errors.length >= 1) {
@@ -66,7 +52,7 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
       return;
     }
     const errs = currErrors.map((error) => (
-      <ErrorDiv msg={error} key={"chngpass-" + error} />
+      <ErrorDiv msg={error} key={"delacc-" + error} />
     ));
     return errs;
   };
@@ -80,7 +66,7 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
   return (
     <ModalTemplate>
       <div className="modalDiv">
-        <h4 className="subHeader">Change Password</h4>
+        <h4 className="subHeader">Delete Account</h4>
         {renderErrors()}
         <label htmlFor="show-pass">Show Passwords:</label>
         <input
@@ -88,7 +74,7 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
           type="checkbox"
           onChange={toggleShowingPasswords}
         />
-        <form onSubmit={changePasswordHandler} className="form">
+        <form onSubmit={DeleteAccountHandler} className="form">
           <label className="label" htmlFor="chpass-email">
             Email:{" "}
           </label>
@@ -101,44 +87,19 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
             autoComplete="email"
           />
 
-          <label className="label" htmlFor="chpass-existing">
-            Existing Password
+          <label className="label" htmlFor="delacc-password">
+            Confirm Password
           </label>
           <input
             className="input"
-            ref={existingPassRef}
-            id="chpass-existing"
+            ref={passwordRef}
+            id="delacc-password"
             type={showingPasswordType}
             onChange={inputChangeHandler}
             autoComplete="password"
           />
-
-          <label className="label" htmlFor="chpass-new">
-            New Password
-          </label>
-          <input
-            className="input"
-            ref={newPassRef}
-            id="chpass-new"
-            type={showingPasswordType}
-            onChange={inputChangeHandler}
-            autoComplete="new-password"
-          />
-
-          <label className="label" htmlFor="chpass-confirm-new">
-            Confirm New Password
-          </label>
-          <input
-            className="input"
-            ref={confirmNewPassRef}
-            id="chpass-confirm-new"
-            type={showingPasswordType}
-            onChange={inputChangeHandler}
-            autoComplete="new-password"
-          />
-
           <button className="btn" type="submit">
-            Change Password
+            DELETE ACCOUNT
           </button>
           <button className="btn" onClick={cancelHandler}>
             Cancel
@@ -149,4 +110,4 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
   );
 };
 
-export default ChangePassword;
+export default DeleteAccount;

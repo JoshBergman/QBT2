@@ -1,16 +1,20 @@
 import { useState, useContext } from "react";
 
-import styles from "../../UserInfo/Presets.module.css";
 import { AuthContext } from "../../../../Store/Auth/AuthContext";
-import RemoveAccount from "./RemoveAccount";
 import ChangePassword from "./ChangePassword";
+import DeleteAccount from "./DeleteAccount";
+import LogoutConfirm from "./LogoutConfirm";
 
 export interface IDisplayState {
   toggleDisplaying: () => void;
 }
 
+interface IAccountManageProps {
+  toggleEditing: () => void;
+}
+
 //This component is only visible when authCTX.auth.isAuthenticated is true
-const AccountManage = () => {
+const AccountManage = ({ toggleEditing }: IAccountManageProps) => {
   const [currAction, setCurrAction] = useState("");
   const authCTX = useContext(AuthContext).auth;
 
@@ -23,12 +27,15 @@ const AccountManage = () => {
   };
 
   const logOutHandler = () => {
-    toggleDisplaying();
-    authCTX.actions.deauthenticate();
+    setCurrAction("confirm-logout");
   };
 
   const startRemoveAccountHandler = () => {
     setCurrAction("remove-account");
+  };
+
+  const giveRed = {
+    color: "#fe415bce",
   };
 
   return (
@@ -36,17 +43,37 @@ const AccountManage = () => {
       {currAction === "change-password" && (
         <ChangePassword toggleDisplaying={toggleDisplaying} />
       )}
-      {currAction === "remove-account" && <RemoveAccount />}
-      <button className={styles.btn} onClick={startChangePassWordHandler}>
+      {currAction === "remove-account" && (
+        <DeleteAccount toggleDisplaying={toggleDisplaying} />
+      )}
+      {currAction === "confirm-logout" && (
+        <LogoutConfirm
+          toggleDisplaying={toggleDisplaying}
+          toggleEditing={toggleEditing}
+        />
+      )}
+      <label htmlFor="chng-pass" className="label">
+        Change Password:{" "}
+      </label>
+      <button
+        id="chng-pass"
+        className="btn"
+        onClick={startChangePassWordHandler}
+      >
         Change Password
       </button>
-      <button className={styles.btn} onClick={logOutHandler}>
+      <label htmlFor="log-out" className="label">
+        Log Out:{" "}
+      </label>
+      <button id="log-out" className="btn" onClick={logOutHandler}>
         Log Out
       </button>
-      <button className={styles.btn} onClick={startRemoveAccountHandler}>
+      <label htmlFor="del-acc" className="label" style={giveRed}>
+        Delete Account:{" "}
+      </label>
+      <button id="del-acc" className="btn" onClick={startRemoveAccountHandler}>
         Delete Account
       </button>
-      log out delete account
     </div>
   );
 };

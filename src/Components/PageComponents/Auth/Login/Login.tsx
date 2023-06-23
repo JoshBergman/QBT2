@@ -26,7 +26,7 @@ const Login = ({ setLoggingIn }: ILoggingInState) => {
         </h2>
         <div className={styles.center}>
           {isExistingUser && <ExistingUser />}
-          {!isExistingUser && <NewUser />}
+          {!isExistingUser && <NewUser setLoggingIn={setLoggingIn} />}
           <button onClick={toggleExistingUser} className={styles.altStatusBtn}>
             {isExistingUser
               ? "New User? Sign Up Here"

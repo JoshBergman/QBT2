@@ -10,11 +10,17 @@ interface IProviderProps {
 export const AuthProvider = ({ children }: IProviderProps) => {
   const storedToken = localStorage.getItem("s");
   const defaultToken: string =
-    storedToken == null ? authDefault.authToken : storedToken;
+    storedToken == null
+      ? authDefault.authToken
+      : pseudo.decrypt(storedToken, 10);
+  const storedEmail = localStorage.getItem("m");
+  const defaultEmail =
+    storedEmail == null ? authDefault.email : pseudo.decrypt(storedEmail, 10);
   const [currToken, setCurrToken] = useState<IAuth["authToken"]>(defaultToken);
   const [currAuthStatus, setCurrAuth] = useState<IAuth["isAuthenticated"]>(
-    defaultToken === "null" ? false : true
+    defaultToken === "null" || defaultEmail === "null" ? false : true
   );
+  const [currEmail, setCurrEmail] = useState<IAuth["email"]>(defaultEmail);
 
   const authenticate = (sessionID: string, email: string) => {
     setCurrAuth(true);
@@ -25,8 +31,10 @@ export const AuthProvider = ({ children }: IProviderProps) => {
 
   const deauthenticate = () => {
     setCurrAuth(false);
-    setCurrToken("");
+    setCurrToken("null");
+    setCurrEmail("null");
     localStorage.removeItem("s");
+    localStorage.removeItem("m");
   };
 
   const setAuthToken = (newToken: string) => {
@@ -36,6 +44,7 @@ export const AuthProvider = ({ children }: IProviderProps) => {
   const finalAuthData: IAuth = {
     isAuthenticated: currAuthStatus,
     authToken: currToken,
+    email: currEmail,
     actions: {
       authenticate: authenticate,
       deauthenticate: deauthenticate,

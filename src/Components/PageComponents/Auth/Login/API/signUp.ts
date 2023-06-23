@@ -9,7 +9,6 @@ const signUp = async (
   const url = endpoints.signUp;
 
   try {
-    console.log(email, password, expenses);
     const response = await axios.post(url, {
       email: email,
       password: password,

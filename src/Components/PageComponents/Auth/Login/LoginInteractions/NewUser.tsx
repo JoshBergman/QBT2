@@ -9,7 +9,11 @@ import ErrorDiv from "../../../../UI/PageElements/ErrorDiv";
 import signUp from "../API/signUp";
 import { DataContext } from "../../../../../Store/Data/DataContext";
 
-const NewUser = () => {
+interface INewUserProps {
+  setLoggingIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NewUser = ({ setLoggingIn }: INewUserProps) => {
   const authCTX = useContext(AuthContext).auth;
   const dataCTX = useContext(DataContext).userData;
   const [currEmail, setCurrEmail] = useState("");
@@ -75,32 +79,32 @@ const NewUser = () => {
     ]);
 
     setLoading(true);
-    await signUp(currEmail, currPassword, expenses).then((response) => {
-      //response === [success: boolean, sessionID: null | string, msg: string]
+    const response = await signUp(currEmail, currPassword, expenses);
+    //response === [success: boolean, sessionID: null | string, msg: string]
+    try {
+      const status: boolean = response[0];
+      const sessionID: string | null = response[1];
+      const msg: string = response[2];
 
-      try {
-        const status: boolean = response[0];
-        const sessionID: string = response[1];
-        const msg: string = response[2];
-
-        //success case
-        if (status) {
+      //success case
+      if (status) {
+        if (sessionID !== null) {
           authCTX.actions.authenticate(sessionID, currEmail);
-          setCurrEmail("");
-          setCurrPassword("");
-          setCurrConfirmPassword("");
-          setCurrSuccess("Account Successfully Created!");
         }
-
-        //fail case
-        if (!status) {
-          setCurrError(msg);
-        }
-      } catch (err) {
-        //super-fail case
-        setCurrError("Server Error. Please try again later.");
+        setCurrSuccess("Account Successfully Created! Redirecting in 1s.");
+        setTimeout(() => {
+          setLoggingIn(false);
+        }, 2000);
       }
-    });
+
+      //fail case
+      if (!status) {
+        setCurrError(msg);
+      }
+    } catch (err) {
+      //super-fail case
+      setCurrError("Server Error. Please try again later.");
+    }
     setLoading(false);
   };
 
