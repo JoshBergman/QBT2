@@ -4,7 +4,13 @@ import { initialColors } from "./ColorSystem";
 
 import { IUserData } from "../DataContext";
 
-const defaultExpenses: [string, number][] = [["Default Expenses", 50]];
+const defaultExpenses: [string, number][] = [
+  ["Welcome To QBT", 1000],
+  ["Choose a preset to get started", 900],
+  ["Housing", 800],
+  ["Vehicle", 350],
+  ["Groceries", 300],
+];
 
 const populateExpenses = async () => {
   const arrayToObj = (array: [string, number][]) => {

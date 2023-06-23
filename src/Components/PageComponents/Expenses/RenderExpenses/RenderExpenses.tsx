@@ -102,6 +102,9 @@ const RenderExpenses = ({
       <ExpenseTotal />
       {returnExpenseCards()}
       <NewExpense />
+      <button onClick={toggleEditMode} className="btn">
+        Edit Expenses
+      </button>
       {authCTX.isAuthenticated && (
         <React.Fragment>
           {editMode ? (
@@ -110,9 +113,6 @@ const RenderExpenses = ({
             </button>
           ) : (
             <React.Fragment>
-              <button onClick={toggleEditMode} className="btn">
-                Edit Expenses
-              </button>
               <button
                 onClick={saveExpHandler}
                 disabled={loading}
