@@ -1,6 +1,5 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
-import { AuthContext } from "../../../../Store/Auth/AuthContext";
 import ChangePassword from "./ChangePassword";
 import DeleteAccount from "./DeleteAccount";
 import LogoutConfirm from "./LogoutConfirm";
@@ -16,7 +15,6 @@ interface IAccountManageProps {
 //This component is only visible when authCTX.auth.isAuthenticated is true
 const AccountManage = ({ toggleEditing }: IAccountManageProps) => {
   const [currAction, setCurrAction] = useState("");
-  const authCTX = useContext(AuthContext).auth;
 
   const toggleDisplaying = () => {
     setCurrAction("");

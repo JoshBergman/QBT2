@@ -1,15 +1,19 @@
 import { useState, useContext, useRef, FormEvent } from "react";
 
 import { AuthContext } from "../../../../Store/Auth/AuthContext";
+import delAccountAPI from "./Helpers/API/deleteAccAPI";
 import findErrors from "./Helpers/Errors/findErrors";
 import { IDisplayState } from "./AccountManage";
 
 import ModalTemplate from "../../../UI/PageElements/ModalTemplate";
+import SuccessDiv from "../../../UI/PageElements/SuccessDiv";
 import ErrorDiv from "../../../UI/PageElements/ErrorDiv";
 
 const DeleteAccount = ({ toggleDisplaying }: IDisplayState) => {
   const [showingPasswords, setShowingPasswords] = useState(false);
-  const [currErrors, setCurrErrors] = useState<string[]>([]);
+  const [currError, setCurrError] = useState("");
+  const [currSuccess, setCurrSuccess] = useState("");
+  const [currLaoding, setCurrLoading] = useState(false);
   const authCTX = useContext(AuthContext).auth;
 
   const emailRef = useRef<HTMLInputElement>(null);
@@ -23,10 +27,13 @@ const DeleteAccount = ({ toggleDisplaying }: IDisplayState) => {
     toggleDisplaying();
   };
 
-  const DeleteAccountHandler = (event: FormEvent) => {
+  const DeleteAccountHandler = async (event: FormEvent) => {
     event.preventDefault();
+    setCurrLoading(true);
+    setCurrError("");
     if (!emailRef.current || !passwordRef.current) {
-      setCurrErrors(["Check all fields for valid input."]);
+      setCurrError("Check all fields for valid input.");
+      setCurrLoading(false);
       return;
     }
 
@@ -34,31 +41,28 @@ const DeleteAccount = ({ toggleDisplaying }: IDisplayState) => {
     const password = passwordRef.current.value;
 
     const errors = findErrors.findDelAccErrors(email, password);
-    setCurrErrors(errors);
-
     if (errors.length >= 1) {
+      setCurrError("Input not valid.");
+      setCurrLoading(false);
       return;
     }
 
-    //add API call to change password here. If successful close display after success div for a few seconds
-    // or if api call fails create error div.
-
-    // also on success dont forget to update session ID
-    toggleDisplaying();
-  };
-
-  const renderErrors = () => {
-    if (currErrors.length <= 0) {
+    const delAccResponse = await delAccountAPI(email, password);
+    if (delAccResponse) {
+      authCTX.actions.deauthenticate();
+      setCurrSuccess("Account Successfully Deleted - Redirecting In 1s...");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
       return;
+    } else {
+      setCurrError("Server Error - Please try again later.");
+      setCurrLoading(false);
     }
-    const errs = currErrors.map((error) => (
-      <ErrorDiv msg={error} key={"delacc-" + error} />
-    ));
-    return errs;
   };
 
   const inputChangeHandler = () => {
-    setCurrErrors([]);
+    setCurrError("");
   };
 
   const showingPasswordType = showingPasswords ? "text" : "password";
@@ -67,7 +71,8 @@ const DeleteAccount = ({ toggleDisplaying }: IDisplayState) => {
     <ModalTemplate>
       <div className="modalDiv">
         <h4 className="subHeader">Delete Account</h4>
-        {renderErrors()}
+        {currError !== "" && <ErrorDiv msg={currError} />}
+        {currSuccess !== "" && <SuccessDiv msg={currSuccess} />}
         <label htmlFor="show-pass">Show Passwords:</label>
         <input
           id="show-pass"
@@ -98,8 +103,8 @@ const DeleteAccount = ({ toggleDisplaying }: IDisplayState) => {
             onChange={inputChangeHandler}
             autoComplete="password"
           />
-          <button className="btn" type="submit">
-            DELETE ACCOUNT
+          <button className="btn" type="submit" disabled={currLaoding}>
+            {currLaoding ? "Loading..." : "DELETE ACCOUNT"}
           </button>
           <button className="btn" onClick={cancelHandler}>
             Cancel

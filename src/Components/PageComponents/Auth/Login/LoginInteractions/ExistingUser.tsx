@@ -7,6 +7,7 @@ import validateEmail from "../../AccountManage/Helpers/Errors/validateEmail";
 import validatePassword from "../../AccountManage/Helpers/Errors/validatePassword";
 
 import ErrorDiv from "../../../../UI/PageElements/ErrorDiv";
+import SuccessDiv from "../../../../UI/PageElements/SuccessDiv";
 
 interface IExistingUserProps {
   setLoggingIn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -98,7 +99,7 @@ const ExistingUser = ({ setLoggingIn }: IExistingUserProps) => {
   return (
     <React.Fragment>
       {currError !== "" && <ErrorDiv msg={currError} />}
-      {currSuccess !== "" && currSuccess}
+      {currSuccess !== "" && <SuccessDiv msg={currSuccess} />}
       <label htmlFor="show-pass">Show Passwords:</label>
       <input id="show-pass" type="checkbox" onChange={toggleShowingPasswords} />
       <form onSubmit={signInHandler} className="form">

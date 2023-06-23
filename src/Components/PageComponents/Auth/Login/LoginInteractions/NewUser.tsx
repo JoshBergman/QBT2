@@ -8,6 +8,7 @@ import validatePassword from "../../AccountManage/Helpers/Errors/validatePasswor
 import ErrorDiv from "../../../../UI/PageElements/ErrorDiv";
 import signUp from "../API/signUp";
 import { DataContext } from "../../../../../Store/Data/DataContext";
+import SuccessDiv from "../../../../UI/PageElements/SuccessDiv";
 
 interface INewUserProps {
   setLoggingIn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -126,7 +127,7 @@ const NewUser = ({ setLoggingIn }: INewUserProps) => {
   return (
     <React.Fragment>
       {currError !== "" && <ErrorDiv msg={currError} />}
-      {currSuccess === "" ? "" : currSuccess}
+      {currSuccess !== "" && <SuccessDiv msg={currSuccess} />}
       <label htmlFor="show-pass">Show Passwords:</label>
       <input id="show-pass" type="checkbox" onChange={toggleShowingPasswords} />
       <label htmlFor="email" className="label">

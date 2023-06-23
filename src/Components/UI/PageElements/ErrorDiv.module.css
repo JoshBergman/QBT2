@@ -1,4 +1,5 @@
-.errorContainer {
+.errorContainer,
+.successContainer {
   background-color: #fe415bce;
   border-radius: 10px;
 
@@ -12,6 +13,10 @@
   flex-direction: row;
 
   color: white;
+}
+
+.successContainer {
+  background-color: #4cd24cbe;
 }
 
 .msgText {
