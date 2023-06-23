@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { DataContext, userDataDefault, IUserData } from "./DataContext";
 import { initialColors } from "./DataManage/ColorSystem";
 
 import { expenseMng, IExpenseArgs } from "./DataManage/ExpenseManagement";
 import { IUserDataArgs, userDataMng } from "./DataManage/UserDataManage";
+import populateExpenses from "./DataManage/getInitialExpenses";
 
 interface IProviderProps {
   children: React.ReactNode;
@@ -18,6 +19,12 @@ export const DataProvider = ({ children }: IProviderProps) => {
     userDataDefault.expenses
   );
   const [colorList, setColorList] = useState(initialColors);
+
+  useEffect(() => {
+    populateExpenses().then((expensesNew) => {
+      setCurrExpenses(expensesNew);
+    });
+  }, []);
 
   const colorSystemArgs = {
     colorState: colorList,

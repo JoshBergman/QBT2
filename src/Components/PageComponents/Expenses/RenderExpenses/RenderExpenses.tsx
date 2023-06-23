@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import styles from "./ExpenseCard.module.css";
 import { DataContext } from "../../../../Store/Data/DataContext";
@@ -10,7 +10,10 @@ import ExpenseTotal from "./ExpenseTotal";
 import ExpenseCard from "./ExpenseCard";
 import NewExpense from "../NewExpense/NewExpense";
 import RemainingIncome from "./RemainingIncome";
-
+import { AuthContext } from "../../../../Store/Auth/AuthContext";
+import SuccessDiv from "../../../UI/PageElements/SuccessDiv";
+import ErrorDiv from "../../../UI/PageElements/ErrorDiv";
+import saveExpensesAPI from "./API/saveExpensesAPI";
 interface IRenderExpensesProps {
   currSortMethod: string;
   showingRemaining: boolean;
@@ -20,11 +23,19 @@ const RenderExpenses = ({
   currSortMethod,
   showingRemaining,
 }: IRenderExpensesProps) => {
+  const [editMode, setEditMode] = useState(false);
+  const [currSaveState, setCurrSaveState] = useState("");
+  const [loading, setLoading] = useState(false);
   const dataCTX = useContext(DataContext).userData;
+  const authCTX = useContext(AuthContext).auth;
   const expenses = dataCTX.expenses; //returns object of expenses ex: {groceries: 20, etc}
 
   const removeHandler = (label: string) => {
     dataCTX.actions.remExpense(label);
+  };
+
+  const toggleEditMode = () => {
+    setEditMode((prev) => !prev);
   };
 
   const modifyHandler = (
@@ -53,10 +64,34 @@ const RenderExpenses = ({
           amount={expense[1]}
           key={expense[0]}
           color={expenses[expense[0]][1]}
+          btnsOff={!editMode}
         />
       );
     });
     return cards;
+  };
+
+  const saveExpHandler = async () => {
+    setLoading(true);
+    const email = authCTX.email;
+    const sessionID = authCTX.authToken;
+
+    const expenseKeys = Object.keys(expenses);
+    const expenseArray: [string, number][] = expenseKeys.map((key) => [
+      key,
+      expenses[key][0],
+    ]);
+
+    const saveResponse = await saveExpensesAPI(email, sessionID, expenseArray);
+    if (saveResponse) {
+      setCurrSaveState("success");
+    } else {
+      setCurrSaveState("error");
+    }
+    setTimeout(() => {
+      setCurrSaveState("");
+    }, 5000);
+    setLoading(false);
   };
 
   return (
@@ -67,6 +102,38 @@ const RenderExpenses = ({
       <ExpenseTotal />
       {returnExpenseCards()}
       <NewExpense />
+      {authCTX.isAuthenticated && (
+        <React.Fragment>
+          {editMode ? (
+            <button onClick={toggleEditMode} className="btn">
+              Finish Editing
+            </button>
+          ) : (
+            <React.Fragment>
+              <button onClick={toggleEditMode} className="btn">
+                Edit Expenses
+              </button>
+              <button
+                onClick={saveExpHandler}
+                disabled={loading}
+                className="btn"
+              >
+                {loading ? "Loading..." : "Save Expenses To Account"}
+              </button>
+            </React.Fragment>
+          )}
+          {currSaveState === "success" && (
+            <SuccessDiv msg={"Expenses Successfully Saved to Account"} />
+          )}
+          {currSaveState === "error" && (
+            <ErrorDiv
+              msg={
+                "Server Error - Expenses not saved. Please try again in one minute."
+              }
+            />
+          )}
+        </React.Fragment>
+      )}
     </div>
   );
 };
