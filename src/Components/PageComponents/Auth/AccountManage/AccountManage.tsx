@@ -52,6 +52,12 @@ const AccountManage = ({ toggleEditing }: IAccountManageProps) => {
           toggleEditing={toggleEditing}
         />
       )}
+      <label htmlFor="log-out" className="label">
+        Log Out:{" "}
+      </label>
+      <button id="log-out" className="btn" onClick={logOutHandler}>
+        Log Out
+      </button>
       <label htmlFor="chng-pass" className="label">
         Change Password:{" "}
       </label>
@@ -61,12 +67,6 @@ const AccountManage = ({ toggleEditing }: IAccountManageProps) => {
         onClick={startChangePassWordHandler}
       >
         Change Password
-      </button>
-      <label htmlFor="log-out" className="label">
-        Log Out:{" "}
-      </label>
-      <button id="log-out" className="btn" onClick={logOutHandler}>
-        Log Out
       </button>
       <label htmlFor="del-acc" className="label" style={giveRed}>
         Delete Account:{" "}
