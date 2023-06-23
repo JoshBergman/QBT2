@@ -90,7 +90,7 @@ const RenderExpenses = ({
     }
     setTimeout(() => {
       setCurrSaveState("");
-    }, 5000);
+    }, 3000);
     setLoading(false);
   };
 
@@ -102,9 +102,19 @@ const RenderExpenses = ({
       <ExpenseTotal />
       {returnExpenseCards()}
       <NewExpense />
-      <button onClick={toggleEditMode} className="btn">
-        Edit Expenses
-      </button>
+      {!authCTX.isAuthenticated && (
+        <React.Fragment>
+          {editMode ? (
+            <button onClick={toggleEditMode} className="btn">
+              Finish Editing
+            </button>
+          ) : (
+            <button onClick={toggleEditMode} className="btn">
+              Edit Expenses
+            </button>
+          )}
+        </React.Fragment>
+      )}
       {authCTX.isAuthenticated && (
         <React.Fragment>
           {editMode ? (
@@ -113,6 +123,9 @@ const RenderExpenses = ({
             </button>
           ) : (
             <React.Fragment>
+              <button onClick={toggleEditMode} className="btn">
+                Edit Expenses
+              </button>
               <button
                 onClick={saveExpHandler}
                 disabled={loading}
