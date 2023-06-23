@@ -9,7 +9,6 @@ const getExpensesAPI = async (email: string, sessionID: string) => {
   };
   try {
     const response = await axios.post(getExpURL, body);
-    console.log(response.data);
     const error = response.data.error;
     if (error === false) {
       const expenses = response.data.expenses;
