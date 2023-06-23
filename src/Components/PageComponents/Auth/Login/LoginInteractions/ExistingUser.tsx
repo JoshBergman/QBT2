@@ -2,6 +2,7 @@ import React, { useState, useRef, useContext, FormEvent } from "react";
 
 import styles from "../Login.module.css";
 import { AuthContext } from "../../../../../Store/Auth/AuthContext";
+import { DataContext } from "../../../../../Store/Data/DataContext";
 import loginAPI from "../API/login";
 import validateEmail from "../../AccountManage/Helpers/Errors/validateEmail";
 import validatePassword from "../../AccountManage/Helpers/Errors/validatePassword";
@@ -15,6 +16,7 @@ interface IExistingUserProps {
 
 const ExistingUser = ({ setLoggingIn }: IExistingUserProps) => {
   const authCTX = useContext(AuthContext);
+  const dataCTX = useContext(DataContext).userData;
   const [currEmail, setCurrEmail] = useState("");
   const [currPassword, setCurrPassword] = useState("");
   const [showingPasswords, setShowingPasswords] = useState(false);
@@ -64,6 +66,7 @@ const ExistingUser = ({ setLoggingIn }: IExistingUserProps) => {
       }
       if (successCase) {
         authCTX.auth.actions.authenticate(sessID, currEmail);
+        dataCTX.actions.setBudget(expensesOrMsg);
         setCurrSuccess("Successfully logged in. Redirecting in 1s...");
         setTimeout(() => {
           setLoggingIn(false);

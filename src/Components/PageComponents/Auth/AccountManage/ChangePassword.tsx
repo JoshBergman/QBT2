@@ -6,10 +6,14 @@ import { IDisplayState } from "./AccountManage";
 
 import ModalTemplate from "../../../UI/PageElements/ModalTemplate";
 import ErrorDiv from "../../../UI/PageElements/ErrorDiv";
+import SuccessDiv from "../../../UI/PageElements/SuccessDiv";
+import changePassAPI from "./Helpers/API/changePassAPI";
 
 const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
   const [showingPasswords, setShowingPasswords] = useState(false);
-  const [currErrors, setCurrErrors] = useState<string[]>([]);
+  const [currError, setCurrError] = useState("");
+  const [currSuccess, setCurrSuccess] = useState("");
+  const [currLoading, setCurrLoading] = useState(false);
   const authCTX = useContext(AuthContext).auth;
 
   const emailRef = useRef<HTMLInputElement>(null);
@@ -25,17 +29,19 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
     toggleDisplaying();
   };
 
-  const changePasswordHandler = (event: FormEvent) => {
+  const changePasswordHandler = async (event: FormEvent) => {
     event.preventDefault();
+    setCurrError("");
     if (
       !emailRef.current ||
       !existingPassRef.current ||
       !newPassRef.current ||
       !confirmNewPassRef.current
     ) {
-      setCurrErrors(["Check all fields for valid input."]);
+      setCurrError("Check all fields for valid input.");
       return;
     }
+    setCurrLoading(true);
 
     const email = emailRef.current.value;
     const existingPassword = existingPassRef.current.value;
@@ -48,31 +54,33 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
       newPassword,
       confirmNewPassword
     );
-    setCurrErrors(errors);
-
     if (errors.length >= 1) {
+      setCurrError("Error: Invalid input(s).");
+      setCurrLoading(false);
       return;
     }
 
-    //add API call to change password here. If successful close display after success div for a few seconds
-    // or if api call fails create error div.
-
-    // also on success dont forget to update session ID
-    toggleDisplaying();
-  };
-
-  const renderErrors = () => {
-    if (currErrors.length <= 0) {
-      return;
+    const apiResponse = await changePassAPI(
+      email,
+      existingPassword,
+      newPassword
+    );
+    if (Array.isArray(apiResponse)) {
+      if (apiResponse[0]) {
+        authCTX.actions.authenticate(apiResponse[1], email);
+        setCurrSuccess("Password Changed. Redirecting 1s...");
+        setTimeout(() => {
+          toggleDisplaying();
+        }, 2500);
+        return;
+      }
     }
-    const errs = currErrors.map((error) => (
-      <ErrorDiv msg={error} key={"chngpass-" + error} />
-    ));
-    return errs;
+    setCurrError("Server Error - Please try again later.");
+    setCurrLoading(false);
   };
 
   const inputChangeHandler = () => {
-    setCurrErrors([]);
+    setCurrError("");
   };
 
   const showingPasswordType = showingPasswords ? "text" : "password";
@@ -81,7 +89,8 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
     <ModalTemplate>
       <div className="modalDiv">
         <h4 className="subHeader">Change Password</h4>
-        {renderErrors()}
+        {currError !== "" && <ErrorDiv msg={currError} />}
+        {currSuccess !== "" && <SuccessDiv msg={currSuccess} />}
         <label htmlFor="show-pass">Show Passwords:</label>
         <input
           id="show-pass"
@@ -137,8 +146,8 @@ const ChangePassword = ({ toggleDisplaying }: IDisplayState) => {
             autoComplete="new-password"
           />
 
-          <button className="btn" type="submit">
-            Change Password
+          <button className="btn" type="submit" disabled={currLoading}>
+            {currLoading ? "Loading..." : "Change Password"}
           </button>
           <button className="btn" onClick={cancelHandler}>
             Cancel
