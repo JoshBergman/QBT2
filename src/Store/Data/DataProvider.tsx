@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { DataContext, userDataDefault, IUserData } from "./DataContext";
-import { initialColors } from "./DataManage/ColorSystem";
+import { colorSystem, initialColors } from "./DataManage/ColorSystem";
 
 import { expenseMng, IExpenseArgs } from "./DataManage/ExpenseManagement";
 import { IUserDataArgs, userDataMng } from "./DataManage/UserDataManage";
@@ -20,12 +20,6 @@ export const DataProvider = ({ children }: IProviderProps) => {
   );
   const [colorList, setColorList] = useState(initialColors);
 
-  useEffect(() => {
-    populateExpenses().then((expensesNew) => {
-      setCurrExpenses(expensesNew);
-    });
-  }, []);
-
   const colorSystemArgs = {
     colorState: colorList,
     setColorState: setColorList,
@@ -41,6 +35,14 @@ export const DataProvider = ({ children }: IProviderProps) => {
     setCurrUserInfo: setCurrUserInfo,
     currUserInfo: currUserInfo,
   };
+
+  useEffect(() => {
+    populateExpenses().then((expensesNew) => {
+      setCurrExpenses(expensesNew);
+      const newBudgetLength = Object.keys(expensesNew).length;
+      setColorList(colorSystem.getNewBudgetColors(newBudgetLength));
+    });
+  }, []);
 
   const setUserInfo = (newSalary: number, newLocation: string) => {
     userDataMng.setUserInfo(newSalary, newLocation, userDataArgs);
@@ -70,11 +72,11 @@ export const DataProvider = ({ children }: IProviderProps) => {
     user: currUserInfo,
     expenses: currExpenses,
     actions: {
-      newExpense: newExpense,
-      remExpense: remExpense,
-      modifyExpense: modifyExpense,
-      setBudget: setBudget,
-      setUserInfo: setUserInfo,
+      newExpense,
+      remExpense,
+      modifyExpense,
+      setBudget,
+      setUserInfo,
     },
   };
 

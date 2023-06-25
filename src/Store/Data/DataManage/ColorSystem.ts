@@ -53,45 +53,66 @@ const freeAllColors = ({ colorState, setColorState }: IColorState) => {
   setColorState(colors);
 };
 
+const getNewBudgetColors = (newBudgetLength: number) => {
+  const usedColors = initialColors.used.concat([]);
+  const newColors = initialColors.new.concat([]);
+
+  for (let i = 0; i < newBudgetLength; i++) {
+    const colorToBeUsed = newColors.shift();
+    if (colorToBeUsed === undefined || colorToBeUsed == null) {
+      break;
+    }
+    usedColors.unshift(colorToBeUsed);
+  }
+
+  return { new: newColors, used: usedColors };
+};
+
 export const colorSystem = {
-  getNewColor: getNewColor,
-  freeColor: freeColor,
+  getNewColor,
+  freeColor,
   freeAllColors,
+  getNewBudgetColors,
 };
 
 export const initialColors: IColorState["colorState"] = {
   new: [
-    "#ff3333",
-    "#77ff33",
-    "#ff9999",
-    "#bbff99",
-    "#00bfff",
-    "#0039e6",
-    "#66d9ff",
-    "#3F3AD7",
+    "#c3f6da",
+    "#d2b48c",
+    "#f5a4a0",
+    "#fff6e5",
+
     "#7ABBE2",
-    "#49B3BE",
-    "#605DC1",
-    "#A082BE",
-    "#1A3998",
+    "#082567",
+    "#0039e6",
+
     "#2E95D2",
-    "#7A94E2",
+    "#49B3BE",
+    "#00bfff",
     "#417C9F",
     "#F39C12",
+    "#ff3333",
+    "#1A3998",
+    "#77ff33",
     "#F5CBA7",
     "#873600",
+    "#66d9ff",
     "#196F3D",
     "#B03A2E",
     "#F9E79F",
     "#16A085",
     "#1D8348",
+    "#A082BE",
+    "#3F3AD7",
     "#C2185B",
     "#F44336",
     "#FDD835",
+    "#7A94E2",
     "#A1887F",
     "#E6EE9C",
     "#D7CCC8",
     "#C5CAE9",
+    "#605DC1",
     "#827717",
   ],
   used: [],
