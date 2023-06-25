@@ -15,6 +15,7 @@ const SectionCard = ({ sectionID, children, title }: ISectionCardProps) => {
   return (
     <section
       id={sectionID}
+      data-testid={sectionID}
       className={styles.section}
       style={{ backgroundColor: themeCTX.sectionColor }}
     >
