@@ -17,7 +17,8 @@ export const AuthProvider = ({ children }: IProviderProps) => {
       : pseudo.decrypt(storedToken, 10);
   const defaultEmail =
     storedEmail == null ? authDefault.email : pseudo.decrypt(storedEmail, 10);
-  const defaultPref = storedPref === "y" ? true : false;
+  const defaultPref =
+    storedPref === "y" ? true : storedPref === "n" ? false : true;
 
   const [currToken, setCurrToken] = useState<IAuth["authToken"]>(defaultToken);
   const [currAuthStatus, setCurrAuth] = useState<IAuth["isAuthenticated"]>(

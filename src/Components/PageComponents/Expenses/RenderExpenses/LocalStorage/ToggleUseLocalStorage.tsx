@@ -19,7 +19,7 @@ const ToggleUseLocalStorage = () => {
 
     if (!newPref) {
       clearExpensesFromLocalStorage();
-      localStorage.removeItem("l");
+      localStorage.setItem("l", "n");
     } else {
       saveExpensesToLocalStorage(expensesArray);
       localStorage.setItem("l", "y");
