@@ -50,7 +50,7 @@ const BarGraph = () => {
   const [bars, tallest, half] = getBars();
 
   return (
-    <div className={styles.chartContainer}>
+    <div data-testid="chart-bar" className={styles.chartContainer}>
       <div className={styles.barLegendGraph}>
         <div className={styles.barLegend}>
           <p style={{ marginTop: "-10px" }}>${tallest}</p>

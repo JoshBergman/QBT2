@@ -26,6 +26,7 @@ const ExpandArrowButton = ({ onClick, label }: IExpandBtnProps) => {
     <React.Fragment>
       {label && <label className={styles.label}>{label}</label>}
       <button
+        data-testid="btn-seemore"
         onClick={onClick}
         className={styles.btnContainer}
         onMouseEnter={onMouseEnterHandler}

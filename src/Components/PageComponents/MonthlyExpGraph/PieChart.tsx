@@ -41,7 +41,11 @@ const PieChart = () => {
 
   return (
     <div className={styles.chartContainer}>
-      <div style={pieChartStyle} className={styles.pieChart}>
+      <div
+        style={pieChartStyle}
+        className={styles.pieChart}
+        data-testid="chart-pie"
+      >
         <div className={styles.shader} />
       </div>
       <ExpensesLegend />

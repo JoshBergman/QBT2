@@ -7,8 +7,17 @@ interface ISectionCardProps {
 
 const SectionCard = ({ sectionID, children, title }: ISectionCardProps) => {
   return (
-    <section id={sectionID} data-testid={sectionID} className={styles.section}>
-      {title && <h3 className={styles.sectionHeading}>{title}</h3>}
+    <section
+      id={sectionID}
+      data-testid={sectionID}
+      style={{ backgroundColor: "#FFFFFB" }}
+      className={styles.section}
+    >
+      {title && (
+        <h3 style={{ color: "#5577dd" }} className={styles.sectionHeading}>
+          {title}
+        </h3>
+      )}
       {children}
     </section>
   );

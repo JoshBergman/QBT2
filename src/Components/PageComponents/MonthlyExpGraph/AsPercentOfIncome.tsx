@@ -42,7 +42,9 @@ const AsPercentOfIncome = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.graphContainer}>{getBars()}</div>
+      <div data-testid="chart-poi" className={styles.graphContainer}>
+        {getBars()}
+      </div>
       <div className={styles.legendContainer}>
         Total Monthly Income: $
         <strong className={styles.strong}>{totalMonthlyIncome}</strong>
