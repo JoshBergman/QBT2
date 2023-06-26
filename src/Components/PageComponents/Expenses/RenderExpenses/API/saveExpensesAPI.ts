@@ -1,21 +1,24 @@
 import axios from "axios";
 import endpoints from "../../../../Private/Endpoints";
+import pseudo from "../../../../../Store/Auth/PsuedoEncrypt";
 
-const saveExpensesAPI = async (
-  email: string,
-  sessionID: string,
-  expenses: [string, number][]
-) => {
+const saveExpensesAPI = async (expenses: [string, number][]) => {
   const setExpURL = endpoints.setExpenses;
+  const storedEmail = localStorage.getItem("m");
+  const storedSessionID = localStorage.getItem("s");
+  if (storedEmail == null || storedSessionID == null) {
+    return false;
+  }
+  const email = pseudo.decrypt(storedEmail, 10);
+  const sessionID = pseudo.decrypt(storedSessionID, 10);
+
   const body = {
     email,
     sessionID,
     expenses,
   };
-  console.log(body);
   try {
     const response = await axios.post(setExpURL, body);
-    console.log(response.data);
     const error = response.data.error;
     if (error === false) {
       return true;

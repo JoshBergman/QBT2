@@ -9,18 +9,22 @@ interface IProviderProps {
 
 export const AuthProvider = ({ children }: IProviderProps) => {
   const storedToken = localStorage.getItem("s");
+  const storedEmail = localStorage.getItem("m");
+  const storedPref = localStorage.getItem("l");
   const defaultToken: string =
     storedToken == null
       ? authDefault.authToken
       : pseudo.decrypt(storedToken, 10);
-  const storedEmail = localStorage.getItem("m");
   const defaultEmail =
     storedEmail == null ? authDefault.email : pseudo.decrypt(storedEmail, 10);
+  const defaultPref = storedPref === "y" ? true : false;
+
   const [currToken, setCurrToken] = useState<IAuth["authToken"]>(defaultToken);
   const [currAuthStatus, setCurrAuth] = useState<IAuth["isAuthenticated"]>(
     defaultToken === "null" || defaultEmail === "null" ? false : true
   );
   const [currEmail, setCurrEmail] = useState<IAuth["email"]>(defaultEmail);
+  const [prefLocalStorage, setPrefLocalStorage] = useState(defaultPref);
 
   const authenticate = (sessionID: string, email: string) => {
     setCurrAuth(true);
@@ -41,14 +45,20 @@ export const AuthProvider = ({ children }: IProviderProps) => {
     setCurrToken(newToken);
   };
 
+  const setLocalStoragePreference = (newPreference: boolean) => {
+    setPrefLocalStorage(newPreference);
+  };
+
   const finalAuthData: IAuth = {
     isAuthenticated: currAuthStatus,
     authToken: currToken,
     email: currEmail,
+    prefersLocalStorage: prefLocalStorage,
     actions: {
-      authenticate: authenticate,
-      deauthenticate: deauthenticate,
-      setAuthToken: setAuthToken,
+      authenticate,
+      deauthenticate,
+      setAuthToken,
+      setLocalStoragePreference,
     },
   };
 

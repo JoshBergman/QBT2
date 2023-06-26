@@ -14,6 +14,8 @@ import { AuthContext } from "../../../../Store/Auth/AuthContext";
 import SuccessDiv from "../../../UI/PageElements/SuccessDiv";
 import ErrorDiv from "../../../UI/PageElements/ErrorDiv";
 import saveExpensesAPI from "./API/saveExpensesAPI";
+import LocalStorageSave from "./LocalStorage/LocalStorageSave";
+import ToggleUseLocalStorage from "./LocalStorage/ToggleUseLocalStorage";
 interface IRenderExpensesProps {
   currSortMethod: string;
   showingRemaining: boolean;
@@ -73,16 +75,13 @@ const RenderExpenses = ({
 
   const saveExpHandler = async () => {
     setLoading(true);
-    const email = authCTX.email;
-    const sessionID = authCTX.authToken;
-
     const expenseKeys = Object.keys(expenses);
     const expenseArray: [string, number][] = expenseKeys.map((key) => [
       key,
       expenses[key][0],
     ]);
 
-    const saveResponse = await saveExpensesAPI(email, sessionID, expenseArray);
+    const saveResponse = await saveExpensesAPI(expenseArray);
     if (saveResponse) {
       setCurrSaveState("success");
     } else {
@@ -90,7 +89,7 @@ const RenderExpenses = ({
     }
     setTimeout(() => {
       setCurrSaveState("");
-    }, 3000);
+    }, 6000);
     setLoading(false);
   };
 
@@ -102,38 +101,22 @@ const RenderExpenses = ({
       <ExpenseTotal />
       {returnExpenseCards()}
       <NewExpense />
-      {!authCTX.isAuthenticated && (
-        <React.Fragment>
-          {editMode ? (
-            <button onClick={toggleEditMode} className="btn">
-              Finish Editing
-            </button>
-          ) : (
-            <button onClick={toggleEditMode} className="btn">
-              Edit Expenses
-            </button>
-          )}
-        </React.Fragment>
+      {editMode ? (
+        <button onClick={toggleEditMode} className="btn">
+          Finish Editing
+        </button>
+      ) : (
+        <button onClick={toggleEditMode} className="btn">
+          Edit Expenses
+        </button>
       )}
-      {authCTX.isAuthenticated && (
+      {authCTX.prefersLocalStorage && <LocalStorageSave />}
+      {authCTX.isAuthenticated && !authCTX.prefersLocalStorage && (
         <React.Fragment>
-          {editMode ? (
-            <button onClick={toggleEditMode} className="btn">
-              Finish Editing
+          {!editMode && (
+            <button onClick={saveExpHandler} disabled={loading} className="btn">
+              {loading ? "Loading..." : "Save Expenses To Account"}
             </button>
-          ) : (
-            <React.Fragment>
-              <button onClick={toggleEditMode} className="btn">
-                Edit Expenses
-              </button>
-              <button
-                onClick={saveExpHandler}
-                disabled={loading}
-                className="btn"
-              >
-                {loading ? "Loading..." : "Save Expenses To Account"}
-              </button>
-            </React.Fragment>
           )}
           {currSaveState === "success" && (
             <SuccessDiv msg={"Expenses Successfully Saved to Account"} />
@@ -147,6 +130,7 @@ const RenderExpenses = ({
           )}
         </React.Fragment>
       )}
+      <ToggleUseLocalStorage />
     </div>
   );
 };

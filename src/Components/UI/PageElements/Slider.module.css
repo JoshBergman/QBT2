@@ -1,0 +1,47 @@
+.masterContainer {
+  width: 110px;
+  display: flex;
+  align-items: left;
+  flex-wrap: nowrap;
+  margin: 10px 0 0 10px;
+}
+
+.sliderContainer {
+  background-color: #5577dda6;
+  border-radius: 5px;
+  width: 45px;
+  height: 10px;
+  display: inline-block;
+  border: none;
+
+  margin: 10px;
+}
+
+.sliderBtn {
+  background-color: #5476dd;
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.sliderContainer:hover {
+  cursor: pointer;
+}
+
+.titleContainer {
+  width: fit-content;
+  margin: 0 0 10px 20px;
+}
+
+.sliderLabel {
+  font-size: 16px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.indicator {
+  font-size: 16px;
+  margin-top: 6px;
+}

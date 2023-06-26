@@ -3,6 +3,8 @@ import pseudo from "../../Auth/PsuedoEncrypt";
 import { initialColors } from "./ColorSystem";
 
 import { IUserData } from "../DataContext";
+import getExpensesFromLocalStorage from "../../../Components/PageComponents/Expenses/RenderExpenses/LocalStorage/Helpers/GetExpensesFromLocalStorage";
+import trimEXP from "../../../Components/PageComponents/Expenses/RenderExpenses/LocalStorage/Helpers/TrimEXP";
 
 const defaultExpenses: [string, number][] = [
   ["Welcome To QBT", 1000],
@@ -12,20 +14,28 @@ const defaultExpenses: [string, number][] = [
   ["Groceries", 300],
 ];
 
-const populateExpenses = async () => {
-  const arrayToObj = (array: [string, number][]) => {
-    const clrs = initialColors.new.concat([]);
-    const returnObj: IUserData["expenses"] = {};
-    for (let i = 0; i < array.length; i++) {
-      const key = array[i][0];
-      const amount = array[i][1];
-      const preColor = clrs.shift();
-      const nextColor = preColor === undefined ? "gray" : preColor;
-      returnObj[key] = [amount, nextColor];
-    }
+const arrayToObj = (array: [string, number][]) => {
+  const clrs = initialColors.new.concat([]);
+  const returnObj: IUserData["expenses"] = {};
+  for (let i = 0; i < array.length; i++) {
+    const key = array[i][0];
+    const amount = array[i][1];
+    const preColor = clrs.shift();
+    const nextColor = preColor === undefined ? "gray" : preColor;
+    returnObj[key] = [amount, nextColor];
+  }
 
-    return returnObj;
-  };
+  return returnObj;
+};
+
+const populateExpenses = async () => {
+  //if prefernce to use browser local storage is set, populate via localstorage.
+  const prefersLocalStorage = localStorage.getItem("l") === "y" ? true : false;
+  if (prefersLocalStorage) {
+    const expenses = trimEXP(getExpensesFromLocalStorage());
+
+    return arrayToObj(expenses);
+  }
 
   //get required info if user has account, if not return defaults.
   const s = localStorage.getItem("s");
