@@ -5,9 +5,11 @@
   box-shadow: -2px -2px 5px #dfe2e7 inset, 2px 2px 3px #dfe2e7 inset;
 
   text-align: center;
+  background-color: "#F8FAFF";
 }
 
 .sectionHeading {
   margin: 15px;
   margin-top: 0;
+  color: "#5476DD";
 }

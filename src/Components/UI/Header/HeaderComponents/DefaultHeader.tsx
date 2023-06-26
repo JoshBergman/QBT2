@@ -1,12 +1,10 @@
 import { useContext } from "react";
 
 import styles from "./HeaderNavigation.module.css";
-import { ThemeContext } from "../../../../Store/Theme/ThemeContext";
 import { ILoggingInState } from "../Header";
 import { AuthContext } from "../../../../Store/Auth/AuthContext";
 
 const DefaultHeader = ({ loggingIn, setLoggingIn }: ILoggingInState) => {
-  const themeCTX = useContext(ThemeContext).theme;
   const authCTX = useContext(AuthContext).auth;
   const authd = authCTX.isAuthenticated;
 
@@ -16,35 +14,18 @@ const DefaultHeader = ({ loggingIn, setLoggingIn }: ILoggingInState) => {
 
   return (
     <nav className={styles.navContainer}>
-      <a
-        className={styles.navLink}
-        style={{ color: themeCTX.logoColor }}
-        href={"#expenses"}
-      >
+      <a className={styles.navLink} href={"#expenses"}>
         Expenses
       </a>
-      <a
-        className={styles.navLink}
-        style={{ color: themeCTX.logoColor }}
-        href={"#expenses"}
-      >
+      <a className={styles.navLink} href={"#expenses"}>
         My Info
       </a>
       {authd ? (
-        <a
-          className={styles.navLink}
-          style={{ color: themeCTX.logoColor }}
-          href="#user"
-        >
+        <a className={styles.navLink} href="#user">
           Account
         </a>
       ) : (
-        <a
-          className={styles.navLink}
-          style={{ color: themeCTX.logoColor }}
-          onClick={onLogin}
-          href="#graph"
-        >
+        <a className={styles.navLink} onClick={onLogin} href="#graph">
           Log In
         </a>
       )}

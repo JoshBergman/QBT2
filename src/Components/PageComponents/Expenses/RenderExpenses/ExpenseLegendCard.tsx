@@ -1,13 +1,8 @@
-import { useContext } from "react";
-
 import styles from "./ExpenseCard.module.css";
-import { ThemeContext } from "../../../../Store/Theme/ThemeContext";
 
 const ExpenseLegendCard = () => {
-  const themeCTX = useContext(ThemeContext).theme;
-
   const cardStyles = {
-    backgroundColor: themeCTX.logoColor,
+    backgroundColor: "#5476DD",
   };
 
   const legendTextStyles = {

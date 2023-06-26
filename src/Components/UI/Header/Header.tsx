@@ -1,7 +1,6 @@
-import React, { useContext, useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 
 import styles from "./Header.module.css";
-import { ThemeContext } from "../../../Store/Theme/ThemeContext";
 
 import DefaultHeader from "./HeaderComponents/DefaultHeader";
 import MobileHeader from "./HeaderComponents/MobileHeader";
@@ -15,7 +14,6 @@ export interface ILoggingInState {
 const Header = () => {
   const [size, setSize] = useState([0, 0]);
   const [loggingIn, setLoggingIn] = useState(false);
-  const themeCTX = useContext(ThemeContext).theme;
 
   useLayoutEffect(() => {
     function updateSize() {
@@ -29,7 +27,7 @@ const Header = () => {
   return (
     <React.Fragment>
       <header id="header" className={styles.header}>
-        <h3 className={styles.logoText} style={{ color: themeCTX.logoColor }}>
+        <h3 className={styles.logoText}>
           <a className="link" href="#graph">
             QBT
           </a>
