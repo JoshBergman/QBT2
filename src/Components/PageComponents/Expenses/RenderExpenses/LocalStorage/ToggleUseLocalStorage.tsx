@@ -1,9 +1,11 @@
 import { useContext } from "react";
-import Slider from "../../../../UI/PageElements/Slider";
+
 import { AuthContext } from "../../../../../Store/Auth/AuthContext";
+import { DataContext } from "../../../../../Store/Data/DataContext";
 import clearExpensesFromLocalStorage from "./Helpers/ClearExpensesFromLocalStorage";
 import saveExpensesToLocalStorage from "./Helpers/SaveExpensesToLocalStorage";
-import { DataContext } from "../../../../../Store/Data/DataContext";
+
+import Slider from "../../../../UI/PageElements/Slider";
 
 const ToggleUseLocalStorage = () => {
   const dataCTX = useContext(DataContext).userData;
