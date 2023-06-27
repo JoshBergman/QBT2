@@ -65,5 +65,19 @@
 .barText {
   position: absolute;
   z-index: 10;
-  transform: translate(-10px, -16px);
+  transform: translate(-6px, -16px);
+}
+
+@media (max-width: 440px) {
+  .barText {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 350px) {
+  .barText {
+    position: relative;
+    width: 4px;
+    font-size: 0px;
+  }
 }

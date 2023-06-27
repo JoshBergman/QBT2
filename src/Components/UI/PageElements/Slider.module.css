@@ -45,3 +45,9 @@
   font-size: 16px;
   margin-top: 6px;
 }
+
+@media (max-width: 350px) {
+  .sliderLabel {
+    font-size: 12px;
+  }
+}
