@@ -12,8 +12,8 @@ export const userDataDefault: IUserData = {
     location: "Tennessee",
   },
   expenses: {
-    Car: [20, "#3366ff"],
-    Dog: [60, "#99b3ff"],
+    "Welcome To QBT": [100, "#3366ff"],
+    "Choose A Preset To Get Started": [60, "#99b3ff"],
   },
   actions: {
     newExpense: () => {},
